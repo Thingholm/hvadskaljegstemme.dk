@@ -1,0 +1,42 @@
+services:
+  web:
+    image: mcr.microsoft.com/dotnet/sdk:10.0
+    ports:
+      - 8080:8080
+    volumes:
+      - ./server:/app
+    working_dir: /app
+    networks:
+      - default
+    command: dotnet watch run --project ./hvadskaljegstemme.API 
+
+  db:
+    image: postgres:18.1
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: hvadskaljegstemme
+    ports:
+      - 5432:5432
+    networks:
+      - default
+    volumes:
+      - db_data:/var/lib/postgresql/18/docker
+
+  client:
+    image: node:24.13
+    ports:
+      - 3000:3000
+    volumes:
+      - ./client:/app
+    working_dir: /app
+    networks:
+      - default
+    command: npm run dev
+
+volumes:
+  db_data:
+
+networks:
+  default:
+    driver: bridge
