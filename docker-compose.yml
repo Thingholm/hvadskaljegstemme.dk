@@ -3,6 +3,7 @@ services:
     image: mcr.microsoft.com/dotnet/sdk:10.0
     ports:
       - 8080:8080
+      - 8081:8081
     volumes:
       - ./server:/app
     working_dir: /app
