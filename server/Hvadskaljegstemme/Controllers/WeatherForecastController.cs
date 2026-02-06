@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace hvadskaljegstemme.API.Controllers
+namespace Hvadskaljegstemme.Controllers
 {
     [ApiController]
     [Route("[controller]")]

@@ -1,4 +1,4 @@
-namespace hvadskaljegstemme.API
+namespace Hvadskaljegstemme
 {
     public class WeatherForecast
     {
