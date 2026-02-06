@@ -1,4 +1,5 @@
 using Hvadskaljegstemme.Models;
+using Hvadskaljegstemme.Models.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace Hvadskaljegstemme.Data;
@@ -16,4 +17,9 @@ public class AppDbContext : DbContext
     public DbSet<PartyVote> PartyVotes { get; set; }
 
     public DbSet<UserAnswer> UserAnswers { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.HasPostgresEnum<Vote>();
+    }
 }
