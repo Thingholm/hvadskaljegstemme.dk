@@ -3,13 +3,12 @@ services:
     image: mcr.microsoft.com/dotnet/sdk:10.0
     ports:
       - 8080:8080
-      - 8081:8081
     volumes:
       - ./server:/app
     working_dir: /app
     networks:
       - default
-    command: sh -c "dotnet dev-certs https --check || dotnet dev-certs https --trust && dotnet watch run --project ./Hvadskaljegstemme"
+    command: dotnet watch run --project ./Hvadskaljegstemme
 
   db:
     image: postgres:18.1
