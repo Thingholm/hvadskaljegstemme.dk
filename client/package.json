@@ -10,9 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fontsource/inter": "^5.2.8",
     "@tailwindcss/vite": "^4.1.18",
     "@tanstack/react-router": "^1.158.1",
     "@tanstack/router-plugin": "^1.158.1",
+    "lucide-react": "^0.563.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "tailwindcss": "^4.1.18"
