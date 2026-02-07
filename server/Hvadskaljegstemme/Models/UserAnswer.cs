@@ -8,9 +8,11 @@ public class UserAnswer
 
     public required Guid UserId { get; set; }
 
-    public required Bill Bill { get; set; }
+    public int BillId { get; set; }
+
+    public Bill? Bill { get; set; }
 
     public required Vote Vote { get; set; }
 
-    public required DateTimeOffset AnsweredAt { get; set; }
+    public DateTimeOffset AnsweredAt { get; }
 }
