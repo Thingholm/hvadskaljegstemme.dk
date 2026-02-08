@@ -9,7 +9,9 @@ function RootComponent() {
     return (
         <>
             <Header />
-            <Outlet />
+            <main className="flex-1 pt-12">
+                <Outlet />
+            </main>
         </>
     );
 }
