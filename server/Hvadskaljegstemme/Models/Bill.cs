@@ -18,5 +18,7 @@ public class Bill
 
     public required string Url { get; set; }
 
+    public ICollection<PartyVote> PartyVotes { get; set; } = [];
+
     public bool IsPassed { get; set; }
 }

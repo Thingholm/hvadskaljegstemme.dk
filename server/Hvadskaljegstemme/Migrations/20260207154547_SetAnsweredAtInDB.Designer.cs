@@ -3,6 +3,7 @@ using System;
 using Hvadskaljegstemme.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Hvadskaljegstemme.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260207154547_SetAnsweredAtInDB")]
+    partial class SetAnsweredAtInDB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -125,7 +128,7 @@ namespace Hvadskaljegstemme.Migrations
                         .HasColumnName("party_id");
 
                     b.Property<int>("Vote")
-                        .HasColumnType("vote")
+                        .HasColumnType("integer")
                         .HasColumnName("vote");
 
                     b.HasKey("Id")
@@ -164,7 +167,7 @@ namespace Hvadskaljegstemme.Migrations
                         .HasColumnName("user_id");
 
                     b.Property<int>("Vote")
-                        .HasColumnType("vote")
+                        .HasColumnType("integer")
                         .HasColumnName("vote");
 
                     b.HasKey("Id")

@@ -8,6 +8,7 @@ public class PartyVote
 
     public Vote Vote { get; set; }
 
+    public int PartyId { get; set; }
     public required Party Party { get; set; }
 
     public required Bill Bill { get; set; }
