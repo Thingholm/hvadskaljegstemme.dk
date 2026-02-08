@@ -14,5 +14,5 @@ public class UserAnswer
 
     public required Vote Vote { get; set; }
 
-    public DateTimeOffset AnsweredAt { get; }
+    public DateTimeOffset AnsweredAt { get; private set; }
 }

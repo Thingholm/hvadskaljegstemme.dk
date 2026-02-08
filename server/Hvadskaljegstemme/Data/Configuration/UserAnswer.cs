@@ -9,5 +9,6 @@ public class UserAnswerConfiguration : IEntityTypeConfiguration<UserAnswer>
     public void Configure(EntityTypeBuilder<UserAnswer> builder)
     {
         builder.Property(ua => ua.AnsweredAt).HasDefaultValueSql("CURRENT_TIMESTAMP").ValueGeneratedOnAdd();
+        builder.Property(ua => ua.Vote).HasColumnType("vote");
     }
 }
