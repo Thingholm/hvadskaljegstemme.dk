@@ -5,13 +5,15 @@ import { useState } from 'react'
 import Button from '../../components/ui/Button'
 import { ChevronLeft, ChevronRight, Info } from 'lucide-react'
 import TestAnswerButton from '../../components/TestAnswerButton'
+import TestQuestionDialog from '../../components/TestQuestionDialog'
 
 export const Route = createFileRoute('/tag-testen/')({
 	component: RouteComponent,
 })
 
 function RouteComponent() {
-	const [questionIndex, setQuestionIndex] = useState(0)
+	const [questionIndex, setQuestionIndex] = useState(0);
+	const [showDialog, setShowDialog] = useState(false);
 
 	return (
 		<div className='flex flex-col min-h-[calc(100dvh-3rem)] justify-between'>
@@ -23,7 +25,7 @@ function RouteComponent() {
 					<h2 className="text-3xl text-pretty font-bold">{mockBills[questionIndex].question}</h2>
 					<Button
 						variant="mobileText"
-						onClick={() => alert("Her kunne du få mere information om spørgsmålet")}
+						onClick={() => setShowDialog(true)}
 					>
 						<Info  size={16}/>
 						Se mere om spørgsmålet
@@ -50,6 +52,7 @@ function RouteComponent() {
 					<ChevronRight />
 				</Button>
 			</div>
+			{showDialog && <TestQuestionDialog bill={mockBills[questionIndex]} closeDialog={() => setShowDialog(false)}/>}
 		</div>
 	)
 }

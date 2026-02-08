@@ -15,17 +15,20 @@ export default function Button({
     to,
     onClick,
     className = "",
+    target,
 }: Readonly<{
     children: React.ReactNode; 
     variant?: keyof typeof buttonVariants;
     className?: string;
     to?: string;
     onClick?: () => void;
+    target?: "_blank" | "_self" | "_parent" | "_top";
 }>) {
     if (to) {
         return (
             <Link 
                 to={to} 
+                target={target}
                 onClick={onClick}
                 className={`${baseStyle} ${buttonVariants[variant]} ${className}`}
             >
