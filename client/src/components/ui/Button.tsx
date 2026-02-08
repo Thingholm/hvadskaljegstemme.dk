@@ -6,34 +6,26 @@ const buttonVariants = {
     text: "text-blue-500 underline text-sm px-3 py-1.5 rounded hover:text-blue-600 hover:bg-gray-100",
 }
 
-type ButtonBaseProps = {
-    children: React.ReactNode; 
-    variant?: keyof typeof buttonVariants;
-    className?: string;
-}
-
-type ButtonAsLink = ButtonBaseProps & {
-    to: string;
-    onClick?: never;
-}
-
-type ButtonAsButton = ButtonBaseProps & {
-    onClick: () => void;
-    to?: never;
-}
-
-type ButtonProps = ButtonAsLink | ButtonAsButton;
-
 export default function Button({ 
     children, 
     variant = "primary",
     to,
     onClick,
     className = "",
-}: Readonly<ButtonProps>) {
+}: Readonly<{
+    children: React.ReactNode; 
+    variant?: keyof typeof buttonVariants;
+    className?: string;
+    to: string;
+    onClick?: () => void;
+}>) {
     if (to) {
         return (
-            <Link to={to} className={`${buttonVariants[variant]} ${className}`}>
+            <Link 
+                to={to} 
+                onClick={onClick}
+                className={`${buttonVariants[variant]} ${className}`}
+            >
                 {children}
             </Link>
         );
