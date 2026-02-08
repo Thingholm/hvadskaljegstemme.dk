@@ -60,7 +60,7 @@ export default function Header() {
                         </li>
                     ))}
                     <li>
-                        <Button to="/tag-testen">
+                        <Button to="/tag-testen" onClick={closeMenu}>
                             Tag testen
                         </Button>
                     </li>
