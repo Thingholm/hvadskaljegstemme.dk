@@ -1,1 +1,1 @@
-export type Vote = "for" | "against" | "neither";
+export type Vote = "for" | "against" | "neither" | "skip";

@@ -16,7 +16,7 @@ export default function Header() {
     ]
 
     return (
-        <header className="fixed w-full">
+        <header className="fixed w-full z-50">
             <div className="bg-white shadow-sm relative flex justify-between items-center h-12 px-4 md:px-16 lg:px-32 z-20">
                 <Link
                     to="/" 
