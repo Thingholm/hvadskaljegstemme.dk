@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 
-const baseStyle = "text-sm px-3 py-1.5 rounded flex items-center justify-center w-fit gap-1";
+const baseStyle = "text-sm px-3 py-1.5 rounded flex items-center justify-center w-fit gap-1 hover:cursor-pointer transition-colors duration-300";
 
 const buttonVariants = {
     primary: "bg-blue-500 text-white rounded hover:bg-blue-600",
