@@ -7,16 +7,19 @@ import { ChevronLeft, ChevronRight, Info } from 'lucide-react'
 import TestAnswerButton from '../components/TestAnswerButton'
 import TestQuestionDialog from '../components/TestQuestionDialog'
 import type { Bill } from '../lib/types/bill'
-import type { Vote } from '../lib/types/vote'    
+import type { VoteWithSkip } from '../lib/types/vote'    
+import type { UserAnswer } from '../lib/types/user-answer'
 
 export default function Test({
     userUUID,
     userAnswers,
     setUserAnswers,
+    setSubmittedAnswers,
 }: Readonly<{
     userUUID: string;
-    userAnswers: Record<number, Vote>;
-    setUserAnswers: (answers: Record<number, Vote>) => void;
+    userAnswers: Record<number, VoteWithSkip>;
+    setUserAnswers: (answers: Record<number, VoteWithSkip>) => void;
+    setSubmittedAnswers: (answers: UserAnswer[]) => void;
 }>) {
 	const [questionIndex, setQuestionIndex] = useState(Object.keys(userAnswers).length < mockBills.length ? mockBills.findIndex(bill => !(bill.id in userAnswers)) || 0 : 0);
 	const [showDialog, setShowDialog] = useState(false);
@@ -28,24 +31,24 @@ export default function Test({
 	const handleFinalize = () => {
 		if (typeof window === "undefined") return;
 
-		const answersToStore = Object.entries(userAnswers).map(([bill_id, vote]) => ({
+		const answersToSubmit = Object.entries(userAnswers).map(([bill_id, vote]) => ({
 			user_uuid: userUUID,
 			bill_id: Number(bill_id),
 			vote,
 			answered_at: new Date().toISOString(),
 		}));
 
-		if (answersToStore.length !== mockBills.length) {
-			console.warn("Not all questions answered", { answersToStore, userAnswers, questionIndex });
+		if (answersToSubmit.length !== mockBills.length) {
+			console.warn("Not all questions answered", { answersToSubmit, userAnswers, questionIndex });
 			return;
 		}
 
-		console.log("Final user answers to store:", answersToStore);
+        setSubmittedAnswers(answersToSubmit);
 
 		navigate({ to: '/resultat/' });
 	}
 
-	const handleUserAnswer = (vote: Vote | null, bill: Bill) => {
+	const handleUserAnswer = (vote: VoteWithSkip | null, bill: Bill) => {
 		if (vote) {
 			setUserAnswers({...userAnswers, [bill.id]: vote});
 		}

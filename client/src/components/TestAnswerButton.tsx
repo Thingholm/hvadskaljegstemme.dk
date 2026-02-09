@@ -1,21 +1,19 @@
 import { Minus, ThumbsDown, ThumbsUp } from "lucide-react";
 import type { Vote } from "../lib/types/vote";
 
-type VoteWithoutSkip = Exclude<Vote, "skip">;
-
-const voteTranslations: Record<VoteWithoutSkip, string> = {
+const voteTranslations: Record<Vote, string> = {
     for: "For",
     against: "Imod",
     neither: "Hverken eller",
 }
 
-const voteIcons: Record<VoteWithoutSkip, React.ReactNode> = {
+const voteIcons: Record<Vote, React.ReactNode> = {
     for: <ThumbsUp className="text-green-600"/>,
     against: <ThumbsDown className="text-red-600"/>,
     neither: <Minus className="text-gray-600"/>,
 }
 
-const voteStyles: Record<VoteWithoutSkip, string> = {
+const voteStyles: Record<Vote, string> = {
     for: "bg-green-100 border-green-500 text-green-700",
     against: "bg-red-100 border-red-500 text-red-700",
     neither: "bg-gray-100 border-gray-400 text-gray-700",
@@ -26,7 +24,7 @@ export default function TestAnswerButton({
     onClick,
     isAnswered = false,
 }: Readonly<{
-    answer: VoteWithoutSkip;
+    answer: Vote;
     onClick: () => void;
     isAnswered?: boolean;
 }>) {

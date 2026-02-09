@@ -1,5 +1,5 @@
 import { useNavigate } from "@tanstack/react-router";
-import type { Vote } from "../lib/types/vote";
+import type { VoteWithSkip } from "../lib/types/vote";
 import Button from "./ui/Button";
 
 const restartContent = {
@@ -23,7 +23,7 @@ export default function ContinueOrRestartTest({
     setHasAnswered: (hasAnswered: boolean) => void;
     unfinishedTest: boolean;
     setUnfinishedTest: (unfinishedTest: boolean) => void;
-    setUserAnswers: (answers: Record<number, Vote>) => void;
+    setUserAnswers: (answers: Record<number, VoteWithSkip>) => void;
 }>) {
     const navigate = useNavigate();
 

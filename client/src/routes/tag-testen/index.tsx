@@ -1,9 +1,10 @@
 import { createFileRoute } from '@tanstack/react-router'
 import Test from '../../components/Test'
 import { useLocalStorage } from '../../hooks/useLocalStorage';
-import type { Vote } from '../../lib/types/vote';
+import type { VoteWithSkip } from '../../lib/types/vote';
 import { useState } from 'react';
 import ContinueOrRestartTest from '../../components/ContinueOrRestartTest';
+import type { UserAnswer } from '../../lib/types/user-answer';
 
 export const Route = createFileRoute('/tag-testen/')({
 	component: RouteComponent,
@@ -11,8 +12,9 @@ export const Route = createFileRoute('/tag-testen/')({
 
 function RouteComponent() {
 	const [userUUID] = useLocalStorage<string>("userUUID", crypto.randomUUID());
-	const [userAnswers, setUserAnswers] = useLocalStorage<Record<number, Vote>>("userAnswers", []);
-	const [hasAnswered, setHasAnswered] = useState(false);
+	const [userAnswers, setUserAnswers] = useLocalStorage<Record<number, VoteWithSkip>>("userAnswers", []);
+	const [submittedAnswers, setSubmittedAnswers] = useLocalStorage<UserAnswer[]>("submittedAnswers", []);
+	const [hasAnswered, setHasAnswered] = useState(submittedAnswers.length > 0);
 	const [unfinishedTest, setUnfinishedTest] = useState(Object.keys(userAnswers).length > 0);
 
 	if (hasAnswered || unfinishedTest) {
@@ -32,6 +34,7 @@ function RouteComponent() {
 			userUUID={userUUID} 
 			userAnswers={userAnswers} 
 			setUserAnswers={setUserAnswers} 
+			setSubmittedAnswers={setSubmittedAnswers}
 		/>
 	)
 }
