@@ -30,7 +30,7 @@ export default function TestAnswerButton({
     return (
         <button
             onClick={onClick}
-            className={`w-full px-4 py-6 rounded-xl font-semibold flex items-center gap-4 md:gap-2 border hover:brightness-[0.98] hover:cursor-pointer active:scale-[0.99] md:active:scale-[0.97] duration-100 md:flex-col md:w-40 ${voteStyles[answer]}`}
+            className={`w-full px-4 py-6 rounded-xl font-semibold flex items-center gap-4 md:gap-2 border hover:brightness-[0.98] hover:cursor-pointer active:scale-[0.99] md:active:scale-[0.97] duration-100 md:flex-col md:w-40 lg:w-50 lg:py-8 select-none ${voteStyles[answer]}`}
         >
             {voteIcons[answer]}
             {voteTranslations[answer]}

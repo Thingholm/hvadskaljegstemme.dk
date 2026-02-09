@@ -13,8 +13,8 @@ export default function TestQuestionDialog({
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
             <div className="absolute inset-0 bg-black opacity-50" onClick={closeDialog}/>
-            <div className="bg-white relative m-4 md:m-8 p-6 md:p-8 rounded-lg shadow-lg w-full z-10 grid gap-2">
-                <button onClick={closeDialog} className="absolute top-5 right-5 p-2"><X/></button>
+            <div className="bg-white relative m-4 md:m-8 p-6 md:p-8 rounded-lg shadow-lg w-full z-10 grid gap-2 max-w-6xl">
+                <button onClick={closeDialog} className="absolute top-5.5 right-5.5 p-1 hover:cursor-pointer hover:bg-gray-200 rounded-full duration-150"><X/></button>
                 <Badge>{bill.bill_tag}</Badge>
                 <h3 className="text-xl font-bold">{bill.title}</h3>
                 <p className="text-sm text-gray-500">Afstemning: {bill.vote_date}</p>

@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 
-const baseStyle = "text-sm px-3 py-1.5 rounded flex items-center justify-center w-fit gap-1 hover:cursor-pointer transition-colors duration-300";
+const baseStyle = "text-sm px-3 py-1.5 rounded flex items-center justify-center w-fit gap-1 hover:cursor-pointer transition-colors duration-300 select-none";
 
 const buttonVariants = {
     primary: "bg-blue-500 text-white rounded hover:bg-blue-600",
@@ -16,6 +16,7 @@ export default function Button({
     onClick,
     className = "",
     target,
+    disabled = false,
 }: Readonly<{
     children: React.ReactNode; 
     variant?: keyof typeof buttonVariants;
@@ -23,6 +24,7 @@ export default function Button({
     to?: string;
     onClick?: () => void;
     target?: "_blank" | "_self" | "_parent" | "_top";
+    disabled?: boolean;
 }>) {
     if (to) {
         return (
@@ -30,7 +32,7 @@ export default function Button({
                 to={to} 
                 target={target}
                 onClick={onClick}
-                className={`${baseStyle} ${buttonVariants[variant]} ${className}`}
+                className={`${baseStyle} ${buttonVariants[variant]} ${className} ${disabled ? "opacity-50 cursor-not-allowed pointer-events-none" : ""}`}
             >
                 {children}
             </Link>
@@ -38,7 +40,7 @@ export default function Button({
     }
 
     return (
-        <button onClick={onClick} className={`${baseStyle} ${buttonVariants[variant]} ${className}`}>
+        <button onClick={onClick} className={`${baseStyle} ${buttonVariants[variant]} ${className} ${disabled ? "opacity-50 cursor-not-allowed pointer-events-none" : ""}`} disabled={disabled}>
             {children}
         </button>
     );
