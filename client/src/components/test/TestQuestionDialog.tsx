@@ -1,7 +1,7 @@
 import { ThumbsDown, ThumbsUp, X } from "lucide-react";
-import type { Bill } from "../lib/types/bill";
-import Badge from "./ui/Badge";
-import Button from "./ui/Button";
+import type { Bill } from "../../lib/types/bill";
+import Badge from "../ui/Badge";
+import Button from "../ui/Button";
 
 export default function TestQuestionDialog({
     bill,
