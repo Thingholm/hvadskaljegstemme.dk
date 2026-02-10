@@ -1,9 +1,9 @@
 import { createFileRoute } from '@tanstack/react-router'
-import Test from '../../components/Test'
+import Test from '../../components/test/Test'
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import type { VoteWithSkip } from '../../lib/types/vote';
 import { useState } from 'react';
-import ContinueOrRestartTest from '../../components/ContinueOrRestartTest';
+import ContinueOrRestartTest from '../../components/test/ContinueOrRestartTest';
 import type { UserAnswer } from '../../lib/types/user-answer';
 
 export const Route = createFileRoute('/tag-testen/')({

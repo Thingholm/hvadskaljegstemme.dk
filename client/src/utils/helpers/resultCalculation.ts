@@ -1,15 +1,16 @@
+import type { Party } from "../../lib/types/party";
 import type { PartyVote } from "../../lib/types/party-vote";
 import type { UserAnswer } from "../../lib/types/user-answer";
 import type { Vote } from "../../lib/types/vote";
 
 export type PartyMatch = {
-    partyId: number;
+    party: Party;
     score: number;
     maxScore: number;
     percentage: number;
 }
 
-export function calculateUserResult(partyVotes: PartyVote[], userAnswers: UserAnswer[]) {
+export function calculateUserResult(partyVotes: PartyVote[], userAnswers: UserAnswer[], parties: Party[]): PartyMatch[] {
     const userAnswersWithoutSkips = userAnswers.filter(ua => ua.vote !== "skip");
 
     const partyMatchDictionary: Record<number, PartyMatch> = [];
@@ -17,7 +18,9 @@ export function calculateUserResult(partyVotes: PartyVote[], userAnswers: UserAn
         const userVote = userAnswersWithoutSkips.find(ua => ua.bill_id === pv.bill_id)?.vote as Vote;
         if (!userVote) return;
 
-        const partyVote = partyMatchDictionary[pv.party_id] ?? {partyId: pv.party_id, score: 0, maxScore: 0};
+        const partyVote = partyMatchDictionary[pv.party_id] ?? {party: parties.find(p => p.id === pv.party_id), score: 0, maxScore: 0};
+        if (!partyVote.party) return;
+
         partyVote.score += calculatePartyMatchScore(pv.vote, userVote);
         partyVote.maxScore++;
 
