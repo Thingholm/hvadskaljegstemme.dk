@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-server:
+    runs-on: ubuntu-24.04-arm
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+        
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Build
+        run: dotnet build --configuration Release
+        working-directory: ./server
+
+  build-client:
+    runs-on: ubuntu-24.04-arm
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v6.2.0
+        with:
+          node-version: '24.10'
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./client
+
+      - name: Build
+        run: npm run build
+        working-directory: ./client
