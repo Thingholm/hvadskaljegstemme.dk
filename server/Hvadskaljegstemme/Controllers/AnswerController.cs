@@ -7,38 +7,12 @@ using Microsoft.EntityFrameworkCore;
 namespace Hvadskaljegstemme.Controllers;
 
 [ApiController]
-[Route("")]
-public class BaseController(AppDbContext db) : ControllerBase
+[Route("answers")]
+public class AnswerController(AppDbContext db) : ControllerBase
 {
     private readonly AppDbContext _db = db;
 
-    [HttpGet("bills")]
-    public async Task<ActionResult<IEnumerable<Models.Bill>>> GetQuestions()
-    {
-        var bills = await _db.Bills.Include(b => b.PartyVotes).ToListAsync();
-        var billDtos = bills.Select(b => new Dtos.Bill(
-            b.Id,
-            b.BillTag,
-            b.Title,
-            b.Description,
-            b.Question,
-            b.ForExplanation,
-            b.AgainstExplanation,
-            b.Url,
-            b.IsPassed,
-            b.PartyVotes.Select(pv => new Dtos.PartyVote(pv.PartyId, pv.Vote))
-        ));
-        return Ok(billDtos);
-    }
-
-    [HttpGet("parties")]
-    public async Task<ActionResult<IEnumerable<Party>>> GetParties()
-    {
-        var parties = await _db.Parties.ToListAsync();
-        return Ok(parties);
-    }
-
-    [HttpPost("answers")]
+    [HttpPost]
     public async Task<ActionResult> PostAnswer(List<Answer> answers)
     {
         var billIds = await _db.Bills.Select(b => b.Id).ToListAsync();
