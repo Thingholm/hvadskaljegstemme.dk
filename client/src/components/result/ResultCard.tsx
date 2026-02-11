@@ -3,15 +3,7 @@ import type { PartyMatch } from "../../utils/helpers/resultCalculation";
 import { useState } from "react";
 import type { UserAnswer } from "../../lib/types/user-answer";
 import type { Bill } from "../../lib/types/bill";
-import type { Vote, VoteWithSkip } from "../../lib/types/vote";
 import PartyLetter from "../PartyLetter";
-
-const VoteCells: Record<Vote | VoteWithSkip, React.ReactNode> = {
-    for: <ThumbsUp className="text-green-600" size={20}/>,
-    against: <ThumbsDown className="text-red-600" size={20}/>,
-    neither: <Minus className="text-gray-600" size={20}/>,
-    skip: <></>,
-}
 
 export default function ResultCard({
     userResult,
@@ -27,8 +19,8 @@ export default function ResultCard({
     const toggleIsExpanded = () => setIsExpanded(!isExpanded);
 
     return (
-        <div className="bg-gray-100 border border-gray-300 rounded-lg p-2">
-            <div className="grid gap-2 hover:cursor-pointer" onClick={toggleIsExpanded}>
+        <div className="bg-gray-100 md:bg-transparent border md:border-none border-gray-300 rounded-lg p-2 md:p-0 duration-150">
+            <div className="grid gap-2 hover:cursor-pointer md:hover:bg-gray-100 md:p-4 md:rounded-lg" onClick={toggleIsExpanded}>
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
                         <PartyLetter party={userResult.party}/>
@@ -53,10 +45,7 @@ export default function ResultCard({
                 </div>
             </div>
             {isExpanded && (
-                <div className="py-2 mt-2 border-t border-gray-300 grid gap-2">
-                    <div className="text-gray-700">
-                        <p>Spørgsmål</p>
-                    </div>
+                <div className="py-2 md:mx-4 mt-2 border-t border-gray-300 grid gap-2">
                     {bills.map(bill => {
                         const userAnswer = userAnswers.find(ua => ua.bill_id === bill.id);
                         const partyAnswer = userResult.partyVotes.find(pv => pv.bill_id === bill.id);
@@ -64,7 +53,7 @@ export default function ResultCard({
                         if (!partyAnswer) return;
 
                         return (
-                            <div key={`${bill.id}-${userResult.party.id}`} className="grid gap-1 pb-2 border-b border-gray-300">
+                            <div key={`${bill.id}-${userResult.party.id}`} className="grid gap-1 pb-2 not-last:border-b border-gray-300">
                                 <p className="font-medium">{bill.question}</p>
                                 <div className="flex justify-between gap-2">
                                     <div className="w-1/3 grid gap-2">

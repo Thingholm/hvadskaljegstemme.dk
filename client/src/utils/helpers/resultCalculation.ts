@@ -1,4 +1,3 @@
-import type { Bill } from "../../lib/types/bill";
 import type { Party } from "../../lib/types/party";
 import type { PartyVote } from "../../lib/types/party-vote";
 import type { UserAnswer } from "../../lib/types/user-answer";

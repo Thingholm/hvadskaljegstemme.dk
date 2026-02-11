@@ -5,12 +5,16 @@ export default function PartyLetter({
     size = 8
 }: Readonly<{
     party?: Party;
-    size?: Number;
+    size?: number;
 }>) {
     return (
         <div 
-            className={`w-${size} h-${size} ${party ? "" : "text-xs"} aspect-square rounded-full flex justify-center items-center text-white`}
-            style={{ backgroundColor: party?.color_hex ?? "#145DFB" }}
+            className={`${party ? "" : "text-xs"} aspect-square rounded-full flex justify-center items-center text-white`}
+            style={{ 
+                backgroundColor: party?.color_hex ?? "#145DFB",
+                height: `calc(var(--spacing) * ${size})`,
+                width: `calc(var(--spacing) * ${size})`
+            }}
         >
             {party?.letter ?? "Dig"}
         </div>
