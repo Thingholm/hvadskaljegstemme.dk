@@ -1,22 +1,37 @@
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Minus, ThumbsDown, ThumbsUp } from "lucide-react";
 import type { PartyMatch } from "../../utils/helpers/resultCalculation";
+import { useState } from "react";
+import type { UserAnswer } from "../../lib/types/user-answer";
+import type { Bill } from "../../lib/types/bill";
+import type { Vote, VoteWithSkip } from "../../lib/types/vote";
+import PartyLetter from "../PartyLetter";
+
+const VoteCells: Record<Vote | VoteWithSkip, React.ReactNode> = {
+    for: <ThumbsUp className="text-green-600" size={20}/>,
+    against: <ThumbsDown className="text-red-600" size={20}/>,
+    neither: <Minus className="text-gray-600" size={20}/>,
+    skip: <></>,
+}
 
 export default function ResultCard({
-    userResult
+    userResult,
+    userAnswers,
+    bills,
 }: Readonly<{
-    userResult: PartyMatch
+    userResult: PartyMatch;
+    userAnswers: UserAnswer[];
+    bills: Bill[];
 }>) {
+    const [isExpanded, setIsExpanded] = useState(false);
+
+    const toggleIsExpanded = () => setIsExpanded(!isExpanded);
+
     return (
         <div className="bg-gray-100 border border-gray-300 rounded-lg p-2">
-            <div className="grid gap-2">
+            <div className="grid gap-2 hover:cursor-pointer" onClick={toggleIsExpanded}>
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                        <span 
-                            className="w-8 h-8 rounded-full flex justify-center items-center text-white" 
-                            style={{ backgroundColor: userResult.party.color_hex }}
-                        >
-                            {userResult.party.letter}
-                        </span>
+                        <PartyLetter party={userResult.party}/>
                         <h3 className="font-semibold">{userResult.party.name}</h3>
                     </div>
                     <h3
@@ -33,10 +48,61 @@ export default function ResultCard({
                     ></div>
                 </div>
                 <div className="flex justify-between items-center">
-                    <p className="text-sm text-gray-500">Klik for at sammenligne svar</p>
-                    <ChevronDown size={20} className="text-gray-500"/>
+                    <p className="text-sm text-gray-500">{isExpanded ? "Klik for at skjule svar" : "Klik for at sammenligne svar"}</p>
+                    <ChevronDown size={20} className={`text-gray-500 duration-150 ${isExpanded ? "rotate-180" : ""}`}/>
                 </div>
             </div>
+            {isExpanded && (
+                <div className="py-2 mt-2 border-t border-gray-300 grid gap-2">
+                    <div className="text-gray-700">
+                        <p>Spørgsmål</p>
+                    </div>
+                    {bills.map(bill => {
+                        const userAnswer = userAnswers.find(ua => ua.bill_id === bill.id);
+                        const partyAnswer = userResult.partyVotes.find(pv => pv.bill_id === bill.id);
+
+                        if (!partyAnswer) return;
+
+                        return (
+                            <div key={`${bill.id}-${userResult.party.id}`} className="grid gap-1 pb-2 border-b border-gray-300">
+                                <p className="font-medium">{bill.question}</p>
+                                <div className="flex justify-between gap-2">
+                                    <div className="w-1/3 grid gap-2">
+                                        <p className="flex items-center gap-2">
+                                            <ThumbsDown className="text-red-600" size={16}/>
+                                            <span className="text-sm text-gray-800">Imod</span>
+                                        </p>
+                                        <div className="flex gap-1">
+                                            {partyAnswer.vote === "against" && <PartyLetter size={6} party={userResult.party}/>}
+                                            {userAnswer?.vote === "against" && <PartyLetter size={6}/>}
+                                        </div>
+                                    </div>                                    
+                                    <div className="w-1/3 grid gap-2">
+                                        <p className="flex items-center gap-2">
+                                            <Minus className="text-gray-600" size={16}/>
+                                            <span className="text-sm text-gray-800">Ingen</span>
+                                        </p>
+                                        <div className="flex gap-1">
+                                            {partyAnswer.vote === "neither" && <PartyLetter size={6} party={userResult.party}/>}
+                                            {userAnswer?.vote === "neither" && <PartyLetter size={6}/>}
+                                        </div>
+                                    </div>                                    
+                                    <div className="w-1/3 grid gap-2">
+                                        <p className="flex items-center gap-2">
+                                            <ThumbsUp className="text-green-600" size={16}/>
+                                            <span className="text-sm text-gray-800">For</span>
+                                        </p>
+                                        <div className="flex gap-1">
+                                            {partyAnswer.vote === "for" && <PartyLetter size={6} party={userResult.party}/>}
+                                            {userAnswer?.vote === "for" && <PartyLetter size={6}/>}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )
+                    })}
+                </div>
+            )}
         </div>
     )
 }

@@ -5,6 +5,7 @@ import { mockPartyVotes } from '../../lib/mockData/partyVotes';
 import { calculateUserResult } from '../../utils/helpers/resultCalculation';
 import { mockParties } from '../../lib/mockData/parties';
 import ResultCard from "../../components/result/ResultCard"
+import { mockBills } from '../../lib/mockData/bills';
 
 export const Route = createFileRoute('/resultat/')({
   component: RouteComponent,
@@ -27,7 +28,12 @@ function RouteComponent() {
     return (
         <div className='p-4 grid gap-2'>
             {userResult.map(ur => (
-                <ResultCard key={ur.party.id} userResult={ur}/>
+                <ResultCard 
+                    key={ur.party.id} 
+                    userResult={ur}
+                    userAnswers={submittedAnswers}
+                    bills={mockBills}
+                />
             ))}
         </div>
     )
