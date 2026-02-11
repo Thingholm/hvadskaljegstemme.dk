@@ -1,4 +1,5 @@
 using Hvadskaljegstemme.Data;
+using Hvadskaljegstemme.Services;
 using Hvadskaljegstemme.Models.Enums;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,6 +9,8 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(connectionString, o => o.MapEnum<Vote>("vote")).UseSnakeCaseNamingConvention()
 );
+
+builder.Services.AddScoped<AnswerService>();
 
 // Add services to the container.
 builder.Services.AddControllers();
