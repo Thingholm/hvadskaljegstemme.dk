@@ -1,13 +1,13 @@
-import { createFileRoute } from '@tanstack/react-router'
-import Test from '../../components/Test'
+import { createFileRoute, useSearch } from '@tanstack/react-router'
+import Test from '../../components/test/Test'
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import type { VoteWithSkip } from '../../lib/types/vote';
 import { useState } from 'react';
-import ContinueOrRestartTest from '../../components/ContinueOrRestartTest';
+import ContinueOrRestartTest from '../../components/test/ContinueOrRestartTest';
 import type { UserAnswer } from '../../lib/types/user-answer';
 
 export const Route = createFileRoute('/tag-testen/')({
-	component: RouteComponent,
+	component: RouteComponent
 })
 
 function RouteComponent() {
@@ -17,7 +17,10 @@ function RouteComponent() {
 	const [hasAnswered, setHasAnswered] = useState(submittedAnswers.length > 0);
 	const [unfinishedTest, setUnfinishedTest] = useState(Object.keys(userAnswers).length > 0);
 
-	if (hasAnswered || unfinishedTest) {
+	const search = useSearch({ from: Route.id });
+	const retake: boolean = search.retake;
+
+	if ((hasAnswered || unfinishedTest) && !retake) {
 		return (
 			<ContinueOrRestartTest
 				hasAnswered={hasAnswered}

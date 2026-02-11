@@ -1,5 +1,5 @@
 import { Minus, ThumbsDown, ThumbsUp } from "lucide-react";
-import type { Vote } from "../lib/types/vote";
+import type { Vote } from "../../lib/types/vote";
 
 const voteTranslations: Record<Vote, string> = {
     for: "For",

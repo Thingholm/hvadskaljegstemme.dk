@@ -1,14 +1,14 @@
 import { useNavigate } from '@tanstack/react-router'
-import TestProgress from '../components/TestProgress'
-import { mockBills } from '../lib/mockData/bills'
+import TestProgress from './TestProgress'
+import { mockBills } from '../../lib/mockData/bills'
 import { useState } from 'react'
-import Button from '../components/ui/Button'
+import Button from '../ui/Button'
 import { ChevronLeft, ChevronRight, Info } from 'lucide-react'
-import TestAnswerButton from '../components/TestAnswerButton'
-import TestQuestionDialog from '../components/TestQuestionDialog'
-import type { Bill } from '../lib/types/bill'
-import type { VoteWithSkip } from '../lib/types/vote'    
-import type { UserAnswer } from '../lib/types/user-answer'
+import TestAnswerButton from './TestAnswerButton'
+import TestQuestionDialog from './TestQuestionDialog'
+import type { Bill } from '../../lib/types/bill'
+import type { VoteWithSkip } from '../../lib/types/vote'    
+import type { UserAnswer } from '../../lib/types/user-answer'
 
 export default function Test({
     userUUID,
