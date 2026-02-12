@@ -11,7 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as TagTestenIndexRouteImport } from './routes/tag-testen/index'
-import { Route as ResultatIndexRouteImport } from './routes/resultat/index'
+import { Route as ResultatIndexRouteImport } from './routes/resu./routes/partiernes-stemmer/index
+import { Route as PartiernesStemmerIndexRouteImport } from './routes/partiernes-stemmer/index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -28,33 +29,42 @@ const ResultatIndexRoute = ResultatIndexRouteImport.update({
   path: '/resultat/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PartiernesStemmerIndexRoute = PartiernesStemmerIndexRouteImport.update({
+  id: '/partiernes-stemmer/',
+  path: '/partiernes-stemmer/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/partiernes-stemmer/': typeof PartiernesStemmerIndexRoute
   '/resultat/': typeof ResultatIndexRoute
   '/tag-testen/': typeof TagTestenIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/partiernes-stemmer': typeof PartiernesStemmerIndexRoute
   '/resultat': typeof ResultatIndexRoute
   '/tag-testen': typeof TagTestenIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/partiernes-stemmer/': typeof PartiernesStemmerIndexRoute
   '/resultat/': typeof ResultatIndexRoute
   '/tag-testen/': typeof TagTestenIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/resultat/' | '/tag-testen/'
+  fullPaths: '/' | '/partiernes-stemmer/' | '/resultat/' | '/tag-testen/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/resultat' | '/tag-testen'
-  id: '__root__' | '/' | '/resultat/' | '/tag-testen/'
+  to: '/' | '/partiernes-stemmer' | '/resultat' | '/tag-testen'
+  id: '__root__' | '/' | '/partiernes-stemmer/' | '/resultat/' | '/tag-testen/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  PartiernesStemmerIndexRoute: typeof PartiernesStemmerIndexRoute
   ResultatIndexRoute: typeof ResultatIndexRoute
   TagTestenIndexRoute: typeof TagTestenIndexRoute
 }
@@ -82,11 +92,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ResultatIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/partiernes-stemmer/': {
+      id: '/partiernes-stemmer/'
+      path: '/partiernes-stemmer'
+      fullPath: '/partiernes-stemmer/'
+      preLoaderRoute: typeof PartiernesStemmerIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  PartiernesStemmerIndexRoute: PartiernesStemmerIndexRoute,
   ResultatIndexRoute: ResultatIndexRoute,
   TagTestenIndexRoute: TagTestenIndexRoute,
 }

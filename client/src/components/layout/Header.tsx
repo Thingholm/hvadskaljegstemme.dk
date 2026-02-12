@@ -12,7 +12,7 @@ export default function Header() {
     const closeMenu = () => setIsOpen(false);
 
     const menuItems = [
-        { name: "Partiernes svar", path: "/partiernes-svar" },
+        { name: "Partiernes stemmer", path: "/partiernes-stemmer" },
         { name: "Om testen", path: "/om-testen" },
     ]
 
