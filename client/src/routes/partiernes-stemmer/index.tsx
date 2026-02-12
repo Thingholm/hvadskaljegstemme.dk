@@ -32,8 +32,8 @@ function RouteComponent() {
 
     return (
         <div className='flex-1 min-h-[calc(100dvh-3rem)] p-4 md:px-16 lg:px-32 md:bg-gray-100'>
-            <div className='grid gap-2 md:gap-4 md:bg-white md:rounded-lg md:shadow md:p-6 xl:max-w-5xl xl:mx-auto'>
-                <div className='md:px-4 grid gap-2 pb-2 md:pb-0'>
+            <div className='grid gap-2 md:gap-4 md:bg-white md:rounded-lg md:shadow md:p-10 xl:max-w-5xl xl:mx-auto'>
+                <div className='grid gap-2 pb-2'>
                     <h2 className='font-bold text-xl'>Partiernes stemmer</h2>
                     <p className='text-sm text-gray-500'>Her kan du se alle spørgsmålene i testen, og hvordan partierne har stemt i Folketingssalen.</p>
                     {submittedAnswers.length > 0 && (
@@ -43,13 +43,13 @@ function RouteComponent() {
                                 id='show-user-answers' 
                                 checked={showUserAnswers}
                                 onChange={() => setShowUserAnswers(s => !s)}
-                                className='h-4 w-4 rounded accent-blue-500'
+                                className='h-3.5 w-3.5 rounded accent-blue-500'
                             />
-                            <span>Vis mine svar</span>
+                            <span className='select-none text-sm'>Vis mine svar</span>
                         </label>
                     )}
                 </div>
-                <div className='grid gap-3'>
+                <div className='grid gap-3 md:gap-6'>
                     {billsWithVotes.map((bill, index) => (
                         <Question billWithVotes={bill} index={index + 1} showUserAnswers={showUserAnswers}/>
                     ))}

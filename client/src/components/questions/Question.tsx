@@ -16,13 +16,13 @@ export default function Question({
     const [showDialog, setShowDialog] = useState(false);
 
     return (
-        <div className="not-last:border-b border-gray-300 pb-3">
+        <div className="not-last:border-b border-gray-300 pb-3 md:pb-6">
             <p className="text-gray-500 text-sm">Spørgsmål {index}</p>
             <h3 className="font-bold text-lg text-pretty">{billWithVotes.question}</h3>
             <Button variant="mobileText" onClick={() => setShowDialog(true)}>
                 Læs mere om forslaget
             </Button>
-            <div className="grid gap-2">
+            <div className="grid gap-2 md:grid-cols-3">
                 <VotesContainer 
                     vote="for" 
                     partyVotes={billWithVotes.party_votes} 
