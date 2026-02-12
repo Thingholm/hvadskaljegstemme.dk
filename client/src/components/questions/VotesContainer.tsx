@@ -1,4 +1,3 @@
-import type React from "react";
 import type { PartyVote } from "../../lib/types/party-vote";
 import type { Vote } from "../../lib/types/vote";
 import PartyLetter from "../PartyLetter";
