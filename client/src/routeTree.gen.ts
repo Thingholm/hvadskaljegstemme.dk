@@ -11,7 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as TagTestenIndexRouteImport } from './routes/tag-testen/index'
-import { Route as ResultatIndexRouteImport } from './routes/resu./routes/partiernes-stemmer/index
+import { Route as ResultatIndexRouteImport } from './routes/resultat/index'
 import { Route as PartiernesStemmerIndexRouteImport } from './routes/partiernes-stemmer/index'
 
 const IndexRoute = IndexRouteImport.update({
