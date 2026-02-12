@@ -5,6 +5,8 @@ import type { VoteWithSkip } from '../../lib/types/vote';
 import { useState } from 'react';
 import ContinueOrRestartTest from '../../components/test/ContinueOrRestartTest';
 import type { UserAnswer } from '../../lib/types/user-answer';
+import { useQuery } from '@tanstack/react-query';
+import { fetchBills } from '../../lib/api/bills';
 
 export const Route = createFileRoute('/tag-testen/')({
 	component: RouteComponent
@@ -19,6 +21,11 @@ function RouteComponent() {
 
 	const search = useSearch({ from: Route.id });
 	const retake: boolean = search.retake;
+
+	const { data: bills, isLoading, error } = useQuery({
+		queryKey: ["bills"],
+		queryFn: fetchBills
+	})
 
 	if ((hasAnswered || unfinishedTest) && !retake) {
 		return (
@@ -38,6 +45,7 @@ function RouteComponent() {
 			userAnswers={userAnswers} 
 			setUserAnswers={setUserAnswers} 
 			setSubmittedAnswers={setSubmittedAnswers}
+			bills={bills}
 		/>
 	)
 }
