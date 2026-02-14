@@ -7,7 +7,7 @@ on:
       - "server/**"
 
 jobs:
-  build-server:
+  build-and-test-server:
     runs-on: ubuntu-24.04-arm
 
     steps:
