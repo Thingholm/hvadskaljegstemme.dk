@@ -22,3 +22,7 @@ jobs:
       - name: Build
         run: dotnet build --configuration Release
         working-directory: ./server
+
+      - name: Run tests
+        run: dotnet test --configuration Release
+        working-directory: ./server
