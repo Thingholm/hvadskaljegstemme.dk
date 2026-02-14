@@ -43,7 +43,7 @@ public class AnswerService(AppDbContext db)
         return Result.Success();
     }
 
-    private static Result ValidateAnswers(List<int> answerIds, List<int> billIds)
+    public static Result ValidateAnswers(List<int> answerIds, List<int> billIds)
     {
         if (billIds.Count != answerIds.Count || billIds.Except(answerIds).Any())
         {
