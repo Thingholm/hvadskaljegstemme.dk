@@ -1,6 +1,6 @@
 import { useNavigate } from "@tanstack/react-router";
-import type { VoteWithSkip } from "../lib/types/vote";
-import Button from "./ui/Button";
+import type { VoteWithSkip } from "../../lib/types/vote";
+import Button from "../ui/Button";
 
 const restartContent = {
     hasAnswered: {

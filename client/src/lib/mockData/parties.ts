@@ -9,7 +9,7 @@ export const mockParties: Party[] = [
     },
     {
         id: 2,
-        name: "Venstre, Danmarks liberale parti",
+        name: "Venstre, Danmarks Liberale Parti",
         letter: "V",
         color_hex: "#00288F"
     },

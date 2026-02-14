@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as TagTestenIndexRouteImport } from './routes/tag-testen/index'
+import { Route as ResultatIndexRouteImport } from './routes/resultat/index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -22,30 +23,39 @@ const TagTestenIndexRoute = TagTestenIndexRouteImport.update({
   path: '/tag-testen/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ResultatIndexRoute = ResultatIndexRouteImport.update({
+  id: '/resultat/',
+  path: '/resultat/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/resultat/': typeof ResultatIndexRoute
   '/tag-testen/': typeof TagTestenIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/resultat': typeof ResultatIndexRoute
   '/tag-testen': typeof TagTestenIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/resultat/': typeof ResultatIndexRoute
   '/tag-testen/': typeof TagTestenIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/tag-testen/'
+  fullPaths: '/' | '/resultat/' | '/tag-testen/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/tag-testen'
-  id: '__root__' | '/' | '/tag-testen/'
+  to: '/' | '/resultat' | '/tag-testen'
+  id: '__root__' | '/' | '/resultat/' | '/tag-testen/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ResultatIndexRoute: typeof ResultatIndexRoute
   TagTestenIndexRoute: typeof TagTestenIndexRoute
 }
 
@@ -65,11 +75,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TagTestenIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/resultat/': {
+      id: '/resultat/'
+      path: '/resultat'
+      fullPath: '/resultat/'
+      preLoaderRoute: typeof ResultatIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ResultatIndexRoute: ResultatIndexRoute,
   TagTestenIndexRoute: TagTestenIndexRoute,
 }
 export const routeTree = rootRouteImport

@@ -2,18 +2,23 @@ import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import Button from "../ui/Button";
 import { Link } from "@tanstack/react-router";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 
 export default function Header() {
     const [isOpen, setIsOpen] = useState(false);
+    const [submittedAnswers] = useLocalStorage("submittedAnswers", [])
 
     const toggleMenu = () => setIsOpen(!isOpen);
     const closeMenu = () => setIsOpen(false);
 
     const menuItems = [
         { name: "Partiernes svar", path: "/partiernes-svar" },
-        { name: "Mit resultat", path: "/resultat" },
         { name: "Om testen", path: "/om-testen" },
     ]
+
+    if (submittedAnswers.length > 0) {
+        menuItems.push({ name: "Se resultat", path: "/resultat" })
+    } 
 
     return (
         <header className="fixed w-full z-50">
@@ -32,7 +37,7 @@ export default function Header() {
                     </button>
                 </div>
 
-                <nav className="hidden items-center md:flex md:gap-4 lg:gap-8">
+                <nav className="hidden items-center text-sm md:flex md:gap-4 lg:gap-8">
                     {menuItems.map((item) => (
                         <Link key={item.path} to={item.path} className="block hover:text-blue-500 duration-300">
                             {item.name}
