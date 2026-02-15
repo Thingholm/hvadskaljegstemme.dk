@@ -1,6 +1,5 @@
 import { useNavigate } from '@tanstack/react-router'
 import TestProgress from './TestProgress'
-import { mockBills } from '../../lib/mockData/bills'
 import { useState } from 'react'
 import Button from '../ui/Button'
 import { ChevronLeft, ChevronRight, Info } from 'lucide-react'
@@ -15,33 +14,30 @@ export default function Test({
     userAnswers,
     setUserAnswers,
     setSubmittedAnswers,
+	bills,
 }: Readonly<{
     userUUID: string;
     userAnswers: Record<number, VoteWithSkip>;
     setUserAnswers: (answers: Record<number, VoteWithSkip>) => void;
     setSubmittedAnswers: (answers: UserAnswer[]) => void;
+	bills: Bill[];
 }>) {
-	const [questionIndex, setQuestionIndex] = useState(Object.keys(userAnswers).length < mockBills.length ? mockBills.findIndex(bill => !(bill.id in userAnswers)) || 0 : 0);
+	const [questionIndex, setQuestionIndex] = useState(Object.keys(userAnswers).length < bills.length ? bills.findIndex(bill => !(bill.id in userAnswers)) || 0 : 0);
 	const [showDialog, setShowDialog] = useState(false);
 	
 	const navigate = useNavigate();
 
-	const currentBill = mockBills[questionIndex];
+	const currentBill = bills[questionIndex];
 
 	const handleFinalize = () => {
 		if (typeof window === "undefined") return;
 
-		const answersToSubmit = Object.entries(userAnswers).map(([bill_id, vote]) => ({
-			user_uuid: userUUID,
-			bill_id: Number(bill_id),
+		const answersToSubmit = Object.entries(userAnswers).map(([billId, vote]) => ({
+			userUuid: userUUID,
+			billId: Number(billId),
 			vote,
-			answered_at: new Date().toISOString(),
+			answeredAt: new Date().toISOString(),
 		}));
-
-		if (answersToSubmit.length !== mockBills.length) {
-			console.warn("Not all questions answered", { answersToSubmit, userAnswers, questionIndex });
-			return;
-		}
 
         setSubmittedAnswers(answersToSubmit);
 
@@ -53,7 +49,7 @@ export default function Test({
 			setUserAnswers({...userAnswers, [bill.id]: vote});
 		}
 
-		if (questionIndex === mockBills.length - 1) {
+		if (questionIndex === bills.length - 1) {
 			handleFinalize();
 			return
 		}
@@ -70,7 +66,7 @@ export default function Test({
 		<div className='flex flex-col min-h-[calc(100dvh-3rem)] md:bg-gray-100 justify-between'>
 			<div>
 				<div className="px-4 md:px-0 md:mx-16 lg:mx-32 pt-3 md:pt-6 lg:pt-8 xl:pt-10 2xl:pt-12 pb-4 bg-gray-100 md:bg-auto xl:max-w-5xl xl:mx-auto">
-					<TestProgress currentProgress={questionIndex} totalProgress={mockBills.length} />
+					<TestProgress currentProgress={questionIndex} totalProgress={bills.length} />
 				</div>
 				<div className="flex flex-col gap-4 bg-white p-4 md:p-8 border-t border-gray-200 md:border-none md:mx-16 lg:mx-32 md:rounded-xl md:shadow-md md:items-center xl:max-w-5xl xl:mx-auto xl:pt-10">
 					<h2 className="text-3xl md:text-2xl text-pretty font-bold md:text-center">{currentBill.question}</h2>
@@ -109,10 +105,10 @@ export default function Test({
 							className='text-gray-500 justify-self-center' 
 							onClick={() => handleUserAnswer("skip", currentBill)}
 						>
-							{questionIndex < mockBills.length - 1 ? "Spring spørgsmålet over" : "Spring spørgsmålet over og afslut"}
+							{questionIndex < bills.length - 1 ? "Spring spørgsmålet over" : "Spring spørgsmålet over og afslut"}
 						</Button>
 						<Button onClick={() => handleUserAnswer(null, currentBill)} className='pl-6 justify-self-end'>
-							{questionIndex < mockBills.length - 1 ? "Næste" : "Afslut"}
+							{questionIndex < bills.length - 1 ? "Næste" : "Afslut"}
 							<ChevronRight size={20} />
 						</Button>
 					</div>
@@ -126,7 +122,7 @@ export default function Test({
 					</Button>
 				) : <div />}
 				<Button onClick={() => handleUserAnswer(null, currentBill)} className='pl-6'>
-					{questionIndex < mockBills.length - 1 ? "Næste" : "Afslut"}
+					{questionIndex < bills.length - 1 ? "Næste" : "Afslut"}
 					<ChevronRight size={20} />
 				</Button>
 			</div>

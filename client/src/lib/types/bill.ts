@@ -1,20 +1,15 @@
-import type { PartyVote } from "./party-vote";
-import type { Vote } from "./vote";
+import type { PartyVoteResponseDTO } from "./party-vote";
 
 export type Bill = {
     id: number;
-    bill_tag: string;
+    billTag: string;
     title: string;
     question: string;
     description: string;
-    for_description: string;
-    against_description: string;
+    forExplanation: string;
+    againstExplanation: string;
     url: string;
-    vote_date: string;
-    is_passed: boolean;
+    voteDate: string;
+    isPassed: boolean;
+    partyVotes: PartyVoteResponseDTO[];
 };
-
-export type BillWithVotes = Bill & {
-    party_votes: PartyVote[];
-    user_answer?: Vote;
-}

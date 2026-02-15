@@ -44,6 +44,16 @@ builder.Host.UseSerilog((context, configuration) =>
 
 builder.Services.AddScoped<AnswerService>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy.WithOrigins("http://localhost:3000")
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
+
 // Add services to the container.
 builder.Services.AddControllers().AddJsonOptions(options =>
     {
@@ -62,7 +72,12 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
-app.UseHttpsRedirection();
+app.UseCors("AllowFrontend");
+
+if (app.Environment.IsProduction())
+{
+    app.UseHttpsRedirection();
+}
 
 app.UseMiddleware<RequestLogger>();
 app.UseMiddleware<ExceptionHandler>();

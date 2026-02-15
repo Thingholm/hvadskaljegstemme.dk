@@ -1,12 +1,14 @@
-import type { Bill } from "./bill";
 import type { Party } from "./party";
 import type { Vote } from "./vote";
 
-export type PartyVote = {
-    id: number;
+export type PartyVoteResponseDTO = {
+    partyId: number;
     vote: Vote;
-    party_id: number;
+}
+
+export type PartyVote = {
+    vote: Vote;
+    partyId: number;
     party?: Party;
-    bill_id: number;
-    bill?: Bill;
+    billId: number
 }

@@ -5,6 +5,12 @@ import type { VoteWithSkip } from '../../lib/types/vote';
 import { useState } from 'react';
 import ContinueOrRestartTest from '../../components/test/ContinueOrRestartTest';
 import type { UserAnswer } from '../../lib/types/user-answer';
+import { useQuery } from '@tanstack/react-query';
+import { fetchBills } from '../../lib/api/bills';
+import PageSkeleton from '../../components/PageSkeleton';
+import CardSection from '../../components/layout/CardSection';
+import PageHeading from '../../components/ui/PageHeading';
+import PageSubheading from '../../components/ui/PageSubheading';
 
 export const Route = createFileRoute('/tag-testen/')({
 	component: RouteComponent
@@ -19,6 +25,30 @@ function RouteComponent() {
 
 	const search = useSearch({ from: Route.id });
 	const retake: boolean = search.retake;
+
+	const { data: bills, isLoading, error } = useQuery({
+		queryKey: ["bills"],
+		queryFn: fetchBills
+	})
+
+	if (isLoading) {
+		return (
+			<PageSkeleton />
+		)
+	}
+
+	if (error || !bills || bills.length < 1) {
+		return (
+			<CardSection>
+				<PageHeading>
+					Ups, noget gik galt.
+				</PageHeading>
+				<PageSubheading>
+					Prøv igen senere.
+				</PageSubheading>
+			</CardSection>
+		)
+	}
 
 	if ((hasAnswered || unfinishedTest) && !retake) {
 		return (
@@ -38,6 +68,7 @@ function RouteComponent() {
 			userAnswers={userAnswers} 
 			setUserAnswers={setUserAnswers} 
 			setSubmittedAnswers={setSubmittedAnswers}
+			bills={bills}
 		/>
 	)
 }

@@ -1,15 +1,18 @@
 import { useState } from "react";
-import type { BillWithVotes } from "../../lib/types/bill"
+import type { Bill } from "../../lib/types/bill"
 import Button from "../ui/Button";
 import VotesContainer from "./VotesContainer";
 import TestQuestionDialog from "../test/TestQuestionDialog";
+import type { Vote } from "../../lib/types/vote";
 
 export default function Question({
     billWithVotes,
     index,
     showUserAnswers,
 }: Readonly<{
-    billWithVotes: BillWithVotes;
+    billWithVotes: Bill & {
+        userAnswer?: Vote
+    };
     index: number;
     showUserAnswers: boolean
 }>) {
@@ -22,21 +25,21 @@ export default function Question({
             <Button variant="mobileText" onClick={() => setShowDialog(true)}>
                 Læs mere om forslaget
             </Button>
-            <div className="grid gap-2 md:grid-cols-3">
+            <div className="grid gap-2 md:grid-cols-3 items-start">
                 <VotesContainer 
-                    vote="for" 
-                    partyVotes={billWithVotes.party_votes} 
-                    userAnswer={showUserAnswers ? billWithVotes.user_answer : undefined}
+                    vote="against" 
+                    partyVotes={billWithVotes.partyVotes} 
+                    userAnswer={showUserAnswers ? billWithVotes.userAnswer : undefined}
                 />
                 <VotesContainer 
                     vote="neither" 
-                    partyVotes={billWithVotes.party_votes} 
-                    userAnswer={showUserAnswers ? billWithVotes.user_answer : undefined}
+                    partyVotes={billWithVotes.partyVotes} 
+                    userAnswer={showUserAnswers ? billWithVotes.userAnswer : undefined}
                 />
                 <VotesContainer 
-                    vote="against" 
-                    partyVotes={billWithVotes.party_votes} 
-                    userAnswer={showUserAnswers ? billWithVotes.user_answer : undefined}
+                    vote="for" 
+                    partyVotes={billWithVotes.partyVotes} 
+                    userAnswer={showUserAnswers ? billWithVotes.userAnswer : undefined}
                 />
             </div>
             {showDialog && (

@@ -11,7 +11,7 @@ export default function PartyLetter({
         <div 
             className={`${party ? (size < 7 ? "text-sm" : "") : "text-xs"} aspect-square rounded-full flex justify-center items-center text-white`}
             style={{ 
-                backgroundColor: party?.color_hex ?? "#145DFB",
+                backgroundColor: party?.colorHex ?? "#145DFB",
                 height: `calc(var(--spacing) * ${size})`,
                 width: `calc(var(--spacing) * ${size})`
             }}
