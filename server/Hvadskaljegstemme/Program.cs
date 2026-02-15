@@ -20,10 +20,10 @@ string connectionString;
     connectionString = $"Host={host};Port={port};Database={database};Username={username};Password={password}";
 }
 
-
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(connectionString, o => o.MapEnum<Vote>("vote")).UseSnakeCaseNamingConvention()
 );
+
 builder.Services.AddCors(options =>
 {
     var allowedOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>();
@@ -43,16 +43,6 @@ builder.Host.UseSerilog((context, configuration) =>
 });
 
 builder.Services.AddScoped<AnswerService>();
-
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowFrontend", policy =>
-    {
-        policy.WithOrigins("http://localhost:3000")
-            .AllowAnyMethod()
-            .AllowAnyHeader();
-    });
-});
 
 // Add services to the container.
 builder.Services.AddControllers().AddJsonOptions(options =>
