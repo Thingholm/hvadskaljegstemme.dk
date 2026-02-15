@@ -8,7 +8,7 @@ export default function PageSubheading({
     className?: string;
 }>) {
     return (
-        <p className={`className='text-sm text-gray-500' ${className}`}>
+        <p className={`text-sm text-gray-500 ${className}`}>
             {children}
         </p>
     )

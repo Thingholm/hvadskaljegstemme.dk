@@ -1,5 +1,5 @@
-import type { PartyVote } from "../../lib/types/party-vote";
-import type { Vote } from "../../lib/types/vote";
+import type { PartyVoteResponseDTO } from "../../lib/types/party-vote";
+import type { Vote, VoteWithSkip } from "../../lib/types/vote";
 import PartyLetter from "../PartyLetter";
 import type { Party } from "../../lib/types/party";
 
@@ -15,14 +15,24 @@ const labelDictionary: Record<Vote, string> = {
     "against": "Imod"
 }
 
+const shortenedLabelDictionary: Record<Vote, string> = {
+    "for": "For",
+    "neither": "Blank",
+    "against": "Imod"
+}
+
 export default function VotesContainer({
     vote,
     partyVotes,
-    userAnswer
+    userAnswer,
+    isShortenedOnMobile = false
 }: Readonly<{
     vote: Vote;
-    partyVotes: PartyVote[];
-    userAnswer?: Vote;
+    partyVotes: (PartyVoteResponseDTO & {
+        party?: Party
+    })[];
+    userAnswer?: VoteWithSkip;
+    isShortenedOnMobile?: boolean
 }>) {
     const parties = partyVotes.filter(pv => pv.vote === vote && pv.party)
         .map(pv => pv.party as Party)
@@ -32,9 +42,9 @@ export default function VotesContainer({
         <div className="grid gap-2">
             <div className="flex items-center gap-2">
                 <div className={`block h-2 w-2 rounded-full ${iconColorDictionary[vote]}`}></div>
-                <p>{labelDictionary[vote]}</p>
+                <p>{isShortenedOnMobile ? shortenedLabelDictionary[vote] : labelDictionary[vote]}</p>
             </div>
-            <div className="flex flex-wrap gap-1.5">
+            <div className="flex flex-wrap gap-1.5 items-start">
                 {parties.map(party => (
                     <PartyLetter party={party} size={6}/>
                 ))}

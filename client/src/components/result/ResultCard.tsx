@@ -1,9 +1,11 @@
-import { ChevronDown, Minus, ThumbsDown, ThumbsUp } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import type { PartyMatch } from "../../utils/helpers/resultCalculation";
 import { useState } from "react";
 import type { UserAnswer } from "../../lib/types/user-answer";
 import type { Bill } from "../../lib/types/bill";
 import PartyLetter from "../PartyLetter";
+import VotesContainer from "../questions/VotesContainer";
+import type { PartyVote } from "../../lib/types/party-vote";
 
 export default function ResultCard({
     userResult,
@@ -19,7 +21,7 @@ export default function ResultCard({
     const toggleIsExpanded = () => setIsExpanded(!isExpanded);
 
     return (
-        <div className="bg-gray-100 md:bg-transparent border md:border-none border-gray-300 rounded-lg p-2 md:p-0 duration-150">
+        <div>
             <div className="grid gap-2 hover:cursor-pointer md:hover:bg-gray-100 md:p-4 md:rounded-lg" onClick={toggleIsExpanded}>
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
@@ -28,7 +30,7 @@ export default function ResultCard({
                     </div>
                     <h3
                         className="text-lg font-black"
-                        style={{ color: userResult.party.color_hex }}
+                        style={{ color: userResult.party.colorHex }}
                     >
                         {userResult.percentage}%
                     </h3>
@@ -36,7 +38,7 @@ export default function ResultCard({
                 <div className="block relative h-2.5 w-full bg-gray-200 rounded-full">
                     <div 
                         className="absolute block h-2.5 rounded-full" 
-                        style={{ backgroundColor: userResult.party.color_hex, width: `${userResult.percentage}%` }}
+                        style={{ backgroundColor: userResult.party.colorHex, width: `${userResult.percentage}%` }}
                     ></div>
                 </div>
                 <div className="flex justify-between items-center">
@@ -47,45 +49,34 @@ export default function ResultCard({
             {isExpanded && (
                 <div className="py-2 md:mx-4 mt-2 border-t border-gray-300 grid gap-2">
                     {bills.map(bill => {
-                        const userAnswer = userAnswers.find(ua => ua.bill_id === bill.id);
-                        const partyAnswer = userResult.partyVotes.find(pv => pv.bill_id === bill.id);
+                        const userAnswer = userAnswers.find(ua => ua.billId === bill.id);
+                        const partyAnswer = {
+                            ...userResult.partyVotes.find(pv => pv.billId === bill.id),
+                            party: userResult.party
+                        } as PartyVote;
 
                         if (!partyAnswer) return;
 
                         return (
-                            <div key={`${bill.id}-${userResult.party.id}`} className="grid gap-1 pb-2 not-last:border-b border-gray-300">
+                            <div key={`${bill.id}-${userResult.party.id}`} className="grid gap-1 pb-3 not-last:border-b border-gray-300">
                                 <p className="font-medium">{bill.question}</p>
-                                <div className="flex justify-between gap-2">
-                                    <div className="w-1/3 grid gap-2">
-                                        <p className="flex items-center gap-2">
-                                            <ThumbsDown className="text-red-600" size={16}/>
-                                            <span className="text-sm text-gray-800">Imod</span>
-                                        </p>
-                                        <div className="flex gap-1">
-                                            {partyAnswer.vote === "against" && <PartyLetter size={6} party={userResult.party}/>}
-                                            {userAnswer?.vote === "against" && <PartyLetter size={6}/>}
-                                        </div>
-                                    </div>                                    
-                                    <div className="w-1/3 grid gap-2">
-                                        <p className="flex items-center gap-2">
-                                            <Minus className="text-gray-600" size={16}/>
-                                            <span className="text-sm text-gray-800">Ingen</span>
-                                        </p>
-                                        <div className="flex gap-1">
-                                            {partyAnswer.vote === "neither" && <PartyLetter size={6} party={userResult.party}/>}
-                                            {userAnswer?.vote === "neither" && <PartyLetter size={6}/>}
-                                        </div>
-                                    </div>                                    
-                                    <div className="w-1/3 grid gap-2">
-                                        <p className="flex items-center gap-2">
-                                            <ThumbsUp className="text-green-600" size={16}/>
-                                            <span className="text-sm text-gray-800">For</span>
-                                        </p>
-                                        <div className="flex gap-1">
-                                            {partyAnswer.vote === "for" && <PartyLetter size={6} party={userResult.party}/>}
-                                            {userAnswer?.vote === "for" && <PartyLetter size={6}/>}
-                                        </div>
-                                    </div>
+                                <div className="grid gap-2 grid-cols-3 items-start">
+                                    <VotesContainer
+                                        vote="for" 
+                                        partyVotes={[partyAnswer]} 
+                                        userAnswer={userAnswer?.vote}
+                                    />
+                                    <VotesContainer 
+                                        vote="neither" 
+                                        partyVotes={[partyAnswer]} 
+                                        userAnswer={userAnswer?.vote}
+                                        isShortenedOnMobile
+                                    />
+                                    <VotesContainer 
+                                        vote="against" 
+                                        partyVotes={[partyAnswer]} 
+                                        userAnswer={userAnswer?.vote}
+                                    />
                                 </div>
                             </div>
                         )

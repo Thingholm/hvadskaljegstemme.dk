@@ -1,3 +1,4 @@
+import type { Bill } from "../../lib/types/bill";
 import type { Party } from "../../lib/types/party";
 import type { PartyVote } from "../../lib/types/party-vote";
 import type { UserAnswer } from "../../lib/types/user-answer";
@@ -11,16 +12,23 @@ export type PartyMatch = {
     partyVotes: PartyVote[];
 }
 
-export function calculateUserResult(partyVotes: PartyVote[], userAnswers: UserAnswer[], parties: Party[]): PartyMatch[] {
+export function calculateUserResult(bills: Bill[], userAnswers: UserAnswer[], parties: Party[]): PartyMatch[] {
     const userAnswersWithoutSkips = userAnswers.filter(ua => ua.vote !== "skip");
 
+    const flattenedPartyVotes = bills.flatMap(bill => {
+        return bill.partyVotes.map(pv => ({
+            ...pv,
+            billId: bill.id
+        }));
+    })
+
     const partyMatchDictionary: Record<number, PartyMatch> = [];
-    partyVotes.forEach(pv => {
-        const userVote = userAnswersWithoutSkips.find(ua => ua.bill_id === pv.bill_id)?.vote as Vote;
+    flattenedPartyVotes.forEach(pv => {
+        const userVote = userAnswersWithoutSkips.find(ua => ua.billId === pv.billId)?.vote as Vote;
         if (!userVote) return;
 
-        const partyVote = partyMatchDictionary[pv.party_id] ?? {
-            party: parties.find(p => p.id === pv.party_id), 
+        const partyVote = partyMatchDictionary[pv.partyId] ?? {
+            party: parties.find(p => p.id === pv.partyId), 
             score: 0, 
             maxScore: 0,
             partyVotes: []
@@ -31,7 +39,7 @@ export function calculateUserResult(partyVotes: PartyVote[], userAnswers: UserAn
         partyVote.maxScore++;
         partyVote.partyVotes.push(pv);
 
-        partyMatchDictionary[pv.party_id] = partyVote
+        partyMatchDictionary[pv.partyId] = partyVote
     });
 
     const partyMatchesWithPercentage = Object.values(partyMatchDictionary).map(pm => ({

@@ -32,17 +32,12 @@ export default function Test({
 	const handleFinalize = () => {
 		if (typeof window === "undefined") return;
 
-		const answersToSubmit = Object.entries(userAnswers).map(([bill_id, vote]) => ({
-			user_uuid: userUUID,
-			bill_id: Number(bill_id),
+		const answersToSubmit = Object.entries(userAnswers).map(([billId, vote]) => ({
+			userUuid: userUUID,
+			billId: Number(billId),
 			vote,
-			answered_at: new Date().toISOString(),
+			answeredAt: new Date().toISOString(),
 		}));
-
-		if (answersToSubmit.length !== bills.length) {
-			console.warn("Not all questions answered", { answersToSubmit, userAnswers, questionIndex });
-			return;
-		}
 
         setSubmittedAnswers(answersToSubmit);
 
