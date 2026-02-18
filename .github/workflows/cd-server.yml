@@ -5,6 +5,7 @@ on:
     branches: ["main", "terraform_setup"]
     paths:
       - "server/**"
+      - ".github/workflows/cd-server.yml"
   workflow_dispatch:
 
 permissions:
