@@ -1,0 +1,99 @@
+name: CD Server
+
+on:
+  push:
+    branches: ["main", "terraform_setup"]
+    paths:
+      - "server/**"
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  AWS_REGION: eu-north-1
+  ECR_REPOSITORY: hvadskaljegstemme-prod-api
+  ECS_CLUSTER: hvadskaljegstemme-prod-api-ecs-cluster
+  ECS_SERVICE: hvadskaljegstemme-prod-api-ecs-service
+  CONTAINER_NAME: hvadskaljegstemme-prod-api
+
+jobs:
+  build-and-test:
+      name: Build and Test
+      runs-on: ubuntu-24.04-arm
+
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v6
+
+        - name: Setup .NET
+          uses: actions/setup-dotnet@v6
+          with:
+            dotnet-version: "10.0.x"
+          
+        - name: Restore dependencies
+          run: dotnet restore Hvadskaljegstemme/Hvadskaljegstemme.csproj
+          working-directory: ./server
+        
+        - name: Build
+          run: dotnet build Hvadskaljegstemme/Hvadskaljegstemme.csproj -c Release --no-restore
+          working-directory: ./server
+
+        - name: Test
+          run: dotnet test Hvadskaljegstemme.Tests/Hvadskaljegstemme.Tests.csproj -c Release --no-restore
+          working-directory: ./server
+
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-24.04-arm
+    needs: build-and-test
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+      
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v6
+        with:
+          role-to-assume: arn:aws:iam::278584440423:role/github-actions-deploy-ecs-hvadskaljegstemme
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build, tag, and push image to ECR
+        id: build-image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+        working-directory: ./server
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
+
+      - name: Download current task definition
+        run: |
+          aws ecs describe-task-definition \
+            --task-definition ${{ env.CONTAINER_NAME }} \
+            --query taskDefinition \
+            > task-definition.json
+        
+      - name: Fill in the new image ID in the Amazon ECS task definition
+        id: task-def
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: task-definition.json
+          container-name: ${{ env.CONTAINER_NAME }}
+          image: ${{ steps.build-image.outputs.image }}
+
+      - name: Deploy to ECS
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v2
+        with:
+          task-definition: ${{ steps.task-def.outputs.task-definition }}
+          service: ${{ env.ECS_SERVICE }}
+          cluster: ${{ env.ECS_CLUSTER }}
+          wait-for-service-stability: true
+
