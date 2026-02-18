@@ -1,6 +1,7 @@
 
 locals {
-  s3_origin_id = "s3-origin"
+  s3_origin_id  = "s3-origin"
+  api_origin_id = "api-ecs-origin"
 }
 
 resource "aws_cloudfront_distribution" "website" {
@@ -14,6 +15,17 @@ resource "aws_cloudfront_distribution" "website" {
     origin_access_control_id = aws_cloudfront_origin_access_control.s3_oac.id
   }
 
+  origin {
+    domain_name = aws_lb.api.dns_name
+    origin_id   = local.api_origin_id
+
+    custom_origin_config {
+      http_port              = 80
+      https_port             = 443
+      origin_protocol_policy = "http-only"
+      origin_ssl_protocols   = ["TLSv1.2"]
+    }
+  }
   
   viewer_certificate {
     cloudfront_default_certificate = true
@@ -23,6 +35,15 @@ resource "aws_cloudfront_distribution" "website" {
     geo_restriction {
         restriction_type = "none"
     }
+  }
+
+  ordered_cache_behavior {
+    path_pattern           = "/api/*"
+    target_origin_id       = local.api_origin_id
+    viewer_protocol_policy = "redirect-to-https"
+    allowed_methods        = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
+    cached_methods         = ["GET", "HEAD"]
+    cache_policy_id        = aws_cloudfront_cache_policy.api_cache_policy.id
   }
 
   default_cache_behavior {
@@ -36,7 +57,6 @@ resource "aws_cloudfront_distribution" "website" {
       event_type = "viewer-request"
       function_arn = aws_cloudfront_function.redirect_to_index_html.arn
     }
-
   }
 }
 
@@ -86,6 +106,24 @@ resource "aws_cloudfront_cache_policy" "website_cache_policy" {
   }
 }
 
+resource "aws_cloudfront_cache_policy" "api_cache_policy" {
+  name        = "api-cache-policy-${var.project}-${var.environment}"
+  min_ttl     = 0
+  default_ttl = 0
+  max_ttl     = 0
+
+  parameters_in_cache_key_and_forwarded_to_origin {
+    cookies_config {
+      cookie_behavior = "none"
+    }
+    headers_config {
+      header_behavior = "none" 
+    }
+    query_strings_config {
+      query_string_behavior = "none"
+    }
+  }
+}
 data "aws_iam_policy_document" "cloudfront_s3_access" {
   statement {
     effect = "Allow"

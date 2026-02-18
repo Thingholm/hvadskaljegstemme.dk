@@ -12,3 +12,7 @@ variable "vpc_id" {
   default     = "vpc-0c214eb2951fd87b9"
 }
 
+variable "aws_region" {
+  type    = string
+  default = "eu-north-1"
+}
