@@ -6,6 +6,7 @@ on:
     paths:
       - "server/**"
       - ".github/workflows/cd-server.yml"
+      - "infrastructure/**"
   workflow_dispatch:
 
 permissions:
