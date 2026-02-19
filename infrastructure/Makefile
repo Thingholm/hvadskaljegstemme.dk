@@ -4,5 +4,5 @@ prod-init:
 prod-plan: prod-init
 	terraform plan -var-file=prod.tfvars
 
-prod-apply: prod-plan
+prod-apply: prod-init
 	terraform apply -var-file=prod.tfvars

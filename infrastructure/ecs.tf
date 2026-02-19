@@ -1,10 +1,5 @@
 resource "aws_ecs_cluster" "main" {
   name = "${var.project}-${var.environment}-api-ecs-cluster"
-
-	setting {
-    name  = "containerInsights"
-    value = "enabled"
-  }
 }
 
 resource "aws_iam_role" "ecs_task_execution_role" {
@@ -22,6 +17,12 @@ resource "aws_iam_role" "ecs_task_execution_role" {
   })
 }
 
+resource "aws_iam_role_policy_attachment" "ecs_task_execution_role_policy" {
+  role       = aws_iam_role.ecs_task_execution_role.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+}
+
+
 resource "aws_iam_role" "ecs_task_role" {
   name = "${var.project}-${var.environment}-ecs-task-role"
 
@@ -37,10 +38,6 @@ resource "aws_iam_role" "ecs_task_role" {
   })
 }
 
-resource "aws_iam_role_policy_attachment" "ecs_task_execution_role_policy" {
-  role       = aws_iam_role.ecs_task_execution_role.name
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
-}
 
 resource "aws_cloudwatch_log_group" "api" {
   name              = "/ecs/${var.project}-${var.environment}-api"
@@ -79,6 +76,25 @@ resource "aws_ecs_task_definition" "api" {
           awslogs-region        = var.aws_region
           awslogs-stream-prefix = "ecs"
         }
+      }
+      environment = [
+        {
+          name  = "POSTGRESCONNECTION__HOST"
+          value = aws_db_instance.db.address
+        }
+      ]
+      secrets = [
+        {
+          name      = "POSTGRESCONNECTION__PASSWORD"
+          valueFrom = "${aws_db_instance.db.master_user_secret[0].secret_arn}:password::"
+        }
+      ]
+      healthCheck = {
+        command     = ["CMD-SHELL", "curl -f http://localhost:8080/api/health || exit 1"]
+        interval    = 10
+        timeout     = 5
+        retries     = 5
+        startPeriod = 20
       }
 		}
 	])
@@ -123,6 +139,16 @@ resource "aws_security_group" "ecs_api" {
   }
 }
 
+
+resource "aws_security_group_rule" "rds_ingress_from_ecs_api" {
+  type                     = "ingress"
+  from_port                = 5432
+  to_port                  = 5432
+  protocol                 = "tcp"
+  security_group_id        = aws_security_group.rds.id
+  source_security_group_id = aws_security_group.ecs_api.id
+}
+
 resource "aws_lb" "api" {
   name               = "${var.project}-${var.environment}-api"
   internal           = false
@@ -162,7 +188,7 @@ resource "aws_ecs_service" "api" {
 	launch_type 		= "FARGATE"
 
 	network_configuration {
-		subnets 				 = [aws_subnet.private_1a.id, aws_subnet.private_1b.id]
+		subnets 				 = [aws_subnet.private_1a.id]
 		security_groups  = [aws_security_group.ecs_api.id]
 		assign_public_ip = false
 	}
@@ -172,6 +198,13 @@ resource "aws_ecs_service" "api" {
 		container_name 	 = "${var.project}-${var.environment}-api"
 		container_port 	 = 8080
 	}
+
+  deployment_minimum_healthy_percent = 100
+  deployment_maximum_percent         = 200
+  deployment_circuit_breaker {
+    enable   = true
+    rollback = true
+  }
 
 	depends_on = [ aws_lb_listener.api ]
 }

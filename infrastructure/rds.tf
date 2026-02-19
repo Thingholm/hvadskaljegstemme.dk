@@ -30,3 +30,8 @@ resource "aws_db_subnet_group" "name" {
     aws_subnet.private_1b.id
   ]
 }
+
+resource "aws_security_group" "rds" {
+  name   = "${var.project}-${var.environment}-rds"
+  vpc_id = var.vpc_id
+}
