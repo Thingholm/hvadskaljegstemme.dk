@@ -41,6 +41,18 @@ resource "aws_route_table_association" "private_1b" {
   route_table_id = aws_route_table.private.id
 }
 
+data "aws_subnet" "public_1a" {
+  vpc_id            = var.vpc_id
+  availability_zone = "eu-north-1a"
+  default_for_az    = true
+}
+
+data "aws_subnet" "public_1b" {
+  vpc_id            = var.vpc_id
+  availability_zone = "eu-north-1b"
+  default_for_az    = true
+}
+
 resource "aws_security_group" "vpc_endpoints" {
   name   = "${var.project}-${var.environment}-vpc-endpoints"
   vpc_id = var.vpc_id
@@ -85,4 +97,8 @@ resource "aws_vpc_endpoint" "logs" {
   subnet_ids          = [aws_subnet.private_1a.id, aws_subnet.private_1b.id]
   security_group_ids  = [aws_security_group.vpc_endpoints.id]
   private_dns_enabled = true
+}
+
+data "aws_ec2_managed_prefix_list" "cloudfront" {
+  name = "com.amazonaws.global.cloudfront.origin-facing"
 }

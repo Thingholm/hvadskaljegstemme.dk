@@ -56,6 +56,11 @@ resource "aws_ecs_task_definition" "api" {
 	execution_role_arn 			 = aws_iam_role.ecs_task_execution_role.arn
   task_role_arn            = aws_iam_role.ecs_task_role.arn
 
+  runtime_platform {
+    operating_system_family = "LINUX"
+    cpu_architecture        = "ARM64"
+  }
+
 	container_definitions = jsonencode([
 		{
 			name 			= "${var.project}-${var.environment}-api"
@@ -88,6 +93,7 @@ resource "aws_security_group" "alb" {
     to_port     = 80
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
+    prefix_list_ids = [data.aws_ec2_managed_prefix_list.cloudfront.id]
   }
 
   egress {
@@ -122,7 +128,7 @@ resource "aws_lb" "api" {
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb.id]
-  subnets            = [aws_subnet.private_1a.id, aws_subnet.private_1b.id]
+  subnets            = [data.aws_subnet.public_1a.id, data.aws_subnet.public_1b.id]
 }
 
 resource "aws_lb_target_group" "api" {

@@ -44,6 +44,7 @@ resource "aws_cloudfront_distribution" "website" {
     allowed_methods        = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
     cached_methods         = ["GET", "HEAD"]
     cache_policy_id        = aws_cloudfront_cache_policy.api_cache_policy.id
+    origin_request_policy_id = data.aws_cloudfront_origin_request_policy.all_viewer_except_host_header.id
   }
 
   default_cache_behavior {
@@ -147,4 +148,8 @@ data "aws_iam_policy_document" "cloudfront_s3_access" {
 resource "aws_s3_bucket_policy" "website_policy" {
   bucket = aws_s3_bucket.website.id
   policy = data.aws_iam_policy_document.cloudfront_s3_access.json
+}
+
+data "aws_cloudfront_origin_request_policy" "all_viewer_except_host_header" {
+  name = "Managed-AllViewerExceptHostHeader"
 }
