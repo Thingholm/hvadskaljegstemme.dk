@@ -20,6 +20,7 @@ resource "aws_db_instance" "db" {
   publicly_accessible = false
   multi_az = false
   availability_zone = "eu-north-1a"
+  vpc_security_group_ids = [aws_security_group.rds.id]
   
 }
 

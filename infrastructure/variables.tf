@@ -16,3 +16,8 @@ variable "aws_region" {
   type    = string
   default = "eu-north-1"
 }
+
+variable "public_subnet_1a_id" {
+  type    = string
+  default = "subnet-0cabfd4db0a0989ca"
+}
