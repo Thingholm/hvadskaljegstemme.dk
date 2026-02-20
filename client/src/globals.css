@@ -1,6 +1,18 @@
 @import "tailwindcss";
 @import "@fontsource/inter";
+@import "@fontsource/inter/800.css";
+@import "@fontsource/source-sans-3";
+@import "@fontsource/source-sans-3/400.css";
+@import "@fontsource/source-sans-3/500.css";
+@import "@fontsource/source-sans-3/600.css";
+@import "@fontsource/source-sans-3/700.css";
+@import "@fontsource/source-sans-3/800.css";
+@import "@fontsource/source-sans-3/900.css";
 
 @theme {
     --default-font-family: "Inter", sans-serif;
+}
+
+.font-heading {
+    font-family: "Source Sans 3", sans-serif;
 }

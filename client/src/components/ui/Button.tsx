@@ -5,6 +5,7 @@ const baseStyle = "text-sm px-3 py-1.5 rounded flex items-center justify-center 
 const buttonVariants = {
     primary: "bg-blue-500 text-white rounded hover:bg-blue-600",
     secondary: "bg-gray-200 rounded hover:bg-gray-300",
+    white: "bg-white rounded text-blue-500 font-medium hover:bg-gray-100",
     text: "text-blue-500 underline rounded hover:text-blue-600 hover:bg-gray-100",
     mobileText: "text-blue-500 rounded px-0! hover:underline",
 }

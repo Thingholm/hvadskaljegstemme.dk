@@ -62,7 +62,7 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
-app.UseCors("AllowFrontend");
+app.UseCors();
 
 if (app.Environment.IsProduction())
 {
