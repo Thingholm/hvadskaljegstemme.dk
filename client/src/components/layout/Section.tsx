@@ -8,7 +8,7 @@ export default function Section({
     isSingleSectionPage?: boolean;
 }>) {
     return (
-        <section className={`p-4 md:px-16 lg:px-32 ${isSingleSectionPage ? "min-h-[calc(100dvh-3rem)]" : ""} ${className}`}>
+        <section className={`p-4 md:px-16 lg:px-32 ${isSingleSectionPage ? "min-h-[calc(100dvh-12.1rem)]" : ""} ${className}`}>
             {children}
         </section>
     )

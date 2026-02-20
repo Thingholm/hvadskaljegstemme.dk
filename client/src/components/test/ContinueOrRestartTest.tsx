@@ -1,6 +1,7 @@
 import { useNavigate } from "@tanstack/react-router";
 import type { VoteWithSkip } from "../../lib/types/vote";
 import Button from "../ui/Button";
+import Section from "../layout/Section";
 
 const restartContent = {
     hasAnswered: {
@@ -45,8 +46,8 @@ export default function ContinueOrRestartTest({
     }
 
     return (
-        <div className="min-h-[calc(100dvh-3rem)] md:bg-gray-100 md:pt-8">
-            <div className="p-4 grid gap-4 md:bg-white md:shadow md:p-8 md:mx-16 lg:mx-32 md:rounded-xl md:items-center xl:max-w-5xl xl:mx-auto">
+        <Section className="md:pt-8" isSingleSectionPage>
+            <div className="grid gap-4 md:bg-white md:shadow md:p-8 md:mx-16 lg:mx-32 md:rounded-xl md:items-center xl:max-w-5xl xl:mx-auto">
                 <h2 className="text-2xl font-bold">{restartContent[state].title}</h2>
                 <p className="text-gray-600">{restartContent[state].description}</p>
                 <div className="flex flex-col gap-2 md:flex-row-reverse">
@@ -66,6 +67,6 @@ export default function ContinueOrRestartTest({
 
                 </div>
             </div>
-        </div>
+        </Section>
     )
 }
