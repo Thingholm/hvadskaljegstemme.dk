@@ -10,7 +10,6 @@ import PageSubheading from '../../components/ui/PageSubheading'
 import { useQuery } from '@tanstack/react-query'
 import { fetchBills } from '../../lib/api/bills'
 import { fetchParties } from '../../lib/api/parties'
-import Section from '../../components/layout/Section'
 
 export const Route = createFileRoute('/partiernes-stemmer/')({
     component: RouteComponent,
