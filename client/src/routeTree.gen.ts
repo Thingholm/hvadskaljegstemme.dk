@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as TagTestenIndexRouteImport } from './routes/tag-testen/index'
 import { Route as ResultatIndexRouteImport } from './routes/resultat/index'
 import { Route as PartiernesStemmerIndexRouteImport } from './routes/partiernes-stemmer/index'
+import { Route as OmTestenIndexRouteImport } from './routes/om-testen/index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -34,15 +35,22 @@ const PartiernesStemmerIndexRoute = PartiernesStemmerIndexRouteImport.update({
   path: '/partiernes-stemmer/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OmTestenIndexRoute = OmTestenIndexRouteImport.update({
+  id: '/om-testen/',
+  path: '/om-testen/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/om-testen/': typeof OmTestenIndexRoute
   '/partiernes-stemmer/': typeof PartiernesStemmerIndexRoute
   '/resultat/': typeof ResultatIndexRoute
   '/tag-testen/': typeof TagTestenIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/om-testen': typeof OmTestenIndexRoute
   '/partiernes-stemmer': typeof PartiernesStemmerIndexRoute
   '/resultat': typeof ResultatIndexRoute
   '/tag-testen': typeof TagTestenIndexRoute
@@ -50,20 +58,33 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/om-testen/': typeof OmTestenIndexRoute
   '/partiernes-stemmer/': typeof PartiernesStemmerIndexRoute
   '/resultat/': typeof ResultatIndexRoute
   '/tag-testen/': typeof TagTestenIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/partiernes-stemmer/' | '/resultat/' | '/tag-testen/'
+  fullPaths:
+    | '/'
+    | '/om-testen/'
+    | '/partiernes-stemmer/'
+    | '/resultat/'
+    | '/tag-testen/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/partiernes-stemmer' | '/resultat' | '/tag-testen'
-  id: '__root__' | '/' | '/partiernes-stemmer/' | '/resultat/' | '/tag-testen/'
+  to: '/' | '/om-testen' | '/partiernes-stemmer' | '/resultat' | '/tag-testen'
+  id:
+    | '__root__'
+    | '/'
+    | '/om-testen/'
+    | '/partiernes-stemmer/'
+    | '/resultat/'
+    | '/tag-testen/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  OmTestenIndexRoute: typeof OmTestenIndexRoute
   PartiernesStemmerIndexRoute: typeof PartiernesStemmerIndexRoute
   ResultatIndexRoute: typeof ResultatIndexRoute
   TagTestenIndexRoute: typeof TagTestenIndexRoute
@@ -99,11 +120,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PartiernesStemmerIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/om-testen/': {
+      id: '/om-testen/'
+      path: '/om-testen'
+      fullPath: '/om-testen/'
+      preLoaderRoute: typeof OmTestenIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  OmTestenIndexRoute: OmTestenIndexRoute,
   PartiernesStemmerIndexRoute: PartiernesStemmerIndexRoute,
   ResultatIndexRoute: ResultatIndexRoute,
   TagTestenIndexRoute: TagTestenIndexRoute,

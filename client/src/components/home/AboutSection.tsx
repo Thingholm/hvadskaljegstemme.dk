@@ -1,26 +1,8 @@
-import type React from "react";
 import Section from "../layout/Section";
 import { Compass, ScrollText, Vote } from "lucide-react";
 import Button from "../ui/Button";
 import SectionTitle from "../ui/SectionTitle";
-
-function AboutCard({
-    icon,
-    heading,
-    text,
-}: Readonly<{
-    icon: React.ReactNode;
-    heading: string;
-    text: string;
-}>) {
-    return (
-        <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 flex flex-col gap-2">
-            <div className="bg-blue-100 text-blue-800 rounded-md w-fit h-fit p-1.5">{icon}</div>
-            <h5 className="font-semibold">{heading}</h5>
-            <p className="text-gray-600">{text}</p>
-        </div>
-    )
-}
+import AboutCard from "../AboutCard";
 
 export default function AboutSection() {
     return (
