@@ -46,7 +46,7 @@ export default function ContinueOrRestartTest({
     }
 
     return (
-        <Section className="md:pt-8" isSingleSectionPage>
+        <Section className="md:pt-8 md:bg-gray-100" isSingleSectionPage>
             <div className="grid gap-4 md:bg-white md:shadow md:p-8 md:mx-16 lg:mx-32 md:rounded-xl md:items-center xl:max-w-5xl xl:mx-auto">
                 <h2 className="text-2xl font-bold">{restartContent[state].title}</h2>
                 <p className="text-gray-600">{restartContent[state].description}</p>

@@ -11,7 +11,7 @@ export const Route = createFileRoute("/")( {
 
 function HomePage() {
     return (
-        <>
+        <div className="bg-white">
             <HeroSection />
             <KeyNumbersSection 
                 answersCount={7210}
@@ -21,6 +21,6 @@ function HomePage() {
             <AboutSection />
             <TestExampleSection />
             <TakeTestSection />
-        </>
+        </div>
     );
 }

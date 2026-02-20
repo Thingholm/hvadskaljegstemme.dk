@@ -8,7 +8,7 @@ export default function CardSection({
     className?: string;
 }>) {
     return (
-        <Section className='md:bg-gray-100' isSingleSectionPage>
+        <Section className='md:bg-gray-100'>
             <div className={`grid gap-2 md:gap-4 md:bg-white md:rounded-lg md:shadow md:p-10 xl:max-w-5xl xl:mx-auto ${className}`}>
                 {children}
             </div>

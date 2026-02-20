@@ -10,7 +10,7 @@ export const Route = createFileRoute('/om-testen/')({
 
 function RouteComponent() {
   return (
-        <Section className="py-6 flex flex-col gap-6 md:py-8" isSingleSectionPage>
+        <Section className="py-6 flex flex-col gap-6 md:py-8 bg-white">
             <div className="grid gap-2">
                 <SectionTitle>Om testen</SectionTitle>
                 <p className="text-gray-600 text-sm">Vi har gennemgået samtlige afstemninger i Folketinget i seneste valgperiode for at lave en partitest, der bygger på, hvordan partierne har stemt i Folketingssalen, og ikke hvad de lover under en valgkamp.</p>
