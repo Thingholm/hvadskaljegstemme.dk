@@ -25,11 +25,13 @@ export default function KeyNumbersSection({
     partyCount: number;
 }>) {
     return (
-        <Section className="bg-gray-100 grid grid-cols-2 gap-y-8 py-6">
-            <KeyNumberBlock label="Har taget testen" value={answersCount}/>
-            <KeyNumberBlock label="Spørgsmål" value={billCount}/>
-            <KeyNumberBlock label="Partier" value={partyCount}/>
-            <KeyNumberBlock label="Transparens" value={"100%"}/>
+        <Section className="bg-gray-100 py-6 md:py-8">
+            <div className="grid grid-cols-2 gap-y-8 md:grid-cols-4 xl:max-w-5xl xl:mx-auto">
+                <KeyNumberBlock label="Har taget testen" value={answersCount}/>
+                <KeyNumberBlock label="Spørgsmål" value={billCount}/>
+                <KeyNumberBlock label="Partier" value={partyCount}/>
+                <KeyNumberBlock label="Transparens" value={"100%"}/>
+            </div>
         </Section>
     )
 }   

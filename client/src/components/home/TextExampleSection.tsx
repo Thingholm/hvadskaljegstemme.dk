@@ -7,6 +7,7 @@ import Button from "../ui/Button";
 import TestAnswerButton from "../test/TestAnswerButton";
 import { useState } from "react";
 import type { Vote } from "../../lib/types/vote";
+import SectionTitle from "../ui/SectionTitle";
 
 const exampleBill: Bill = {
     id: 1,
@@ -31,17 +32,17 @@ export default function TestExampleSection() {
     }
     
     return (
-        <Section className="bg-gray-100 grid gap-6 py-6">
+        <Section className="bg-gray-100 grid gap-6 py-6 md:py-8">
             <div className="text-center grid gap-2">
-                <h2 className="text-xl font-semibold">Sådan fungerer det</h2>
-                <p className="text-gray-600 text-pretty">For at læse mere om spørgsmålet og argumenter for og imod, kan du klikke på <span className="italic">Se mere om spørgsmålet</span>. Hvis spørgsmålet springes over, medregnes det ikke i resultatet og er derfor ikke det samme som <span  className="italic">hverken eller</span>.</p>
+                <SectionTitle>Sådan fungerer det</SectionTitle>
+                <p className="text-gray-600 xl:max-w-5xl xl:mx-auto text-pretty">For at læse mere om spørgsmålet og argumenter for og imod, kan du klikke på <span className="italic">Se mere om spørgsmålet</span>. Hvis spørgsmålet springes over, medregnes det ikke i resultatet og er derfor ikke det samme som <span  className="italic">hverken eller</span>.</p>
             </div>
-            <div className="bg-white rounded-xl p-4">
+            <div className="rounded-xl border border-gray-200 md:border-hidden overflow-hidden">
                 <div>
-                    <div className="px-4 md:px-0 md:mx-16 lg:mx-32 pt-3 md:pt-6 lg:pt-8 xl:pt-10 2xl:pt-12 pb-4 bg-gray-100 md:bg-auto xl:max-w-5xl xl:mx-auto rounded-t-lg">
+                    <div className="px-4 md:px-0 pt-3 2xl:pt-12 pb-4 bg-gray-100 md:bg-auto xl:max-w-5xl xl:mx-auto">
                         <TestProgress currentProgress={12} totalProgress={28} />
                     </div>
-                    <div className="flex flex-col gap-4 bg-white p-4 md:p-8 border-t border-gray-200 md:border-none md:mx-16 lg:mx-32 md:rounded-xl md:shadow-md md:items-center xl:max-w-5xl xl:mx-auto xl:pt-10">
+                    <div className="flex flex-col gap-4 bg-white p-4 md:p-8 border-t border-gray-200 md:border-none md:rounded-xl md:shadow-md md:items-center xl:max-w-5xl xl:mx-auto xl:pt-10">
                         <h2 className="text-3xl md:text-2xl text-pretty font-bold md:text-center">{exampleBill.question}</h2>
                         <Button
                             variant="mobileText"
