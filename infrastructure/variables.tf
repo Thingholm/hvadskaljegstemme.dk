@@ -1,15 +1,15 @@
 variable "project" {
-  type        = string
-  default     = "hvadskaljegstemme"
+  type    = string
+  default = "hvadskaljegstemme"
 }
 
 variable "environment" {
-  type        = string
+  type = string
 }
 
 variable "vpc_id" {
-  type        = string
-  default     = "vpc-0c214eb2951fd87b9"
+  type    = string
+  default = "vpc-0c214eb2951fd87b9"
 }
 
 variable "aws_region" {

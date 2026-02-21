@@ -1,5 +1,5 @@
 terraform {
-  
+
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -8,14 +8,14 @@ terraform {
   }
 
   backend "s3" {
-    bucket = "hsjs-tfstate"
-    key    = "base/prod.tfstate"
-    region = "eu-north-1"
+    bucket  = "hsjs-tfstate"
+    key     = "base/prod.tfstate"
+    region  = "eu-north-1"
     profile = "AdministratorAccess-278584440423"
   }
 }
 
 provider "aws" {
-  region = "eu-north-1"
+  region  = "eu-north-1"
   profile = "AdministratorAccess-278584440423"
 }

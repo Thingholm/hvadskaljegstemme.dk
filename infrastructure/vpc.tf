@@ -29,7 +29,7 @@ resource "aws_route_table" "private" {
 resource "aws_route" "private_nat" {
   route_table_id         = aws_route_table.private.id
   destination_cidr_block = "0.0.0.0/0"
-  network_interface_id = module.fck-nat.eni_id
+  network_interface_id   = module.fck-nat.eni_id
 }
 
 resource "aws_route_table_association" "private_1a" {

@@ -4,11 +4,11 @@
 module "fck-nat" {
   source = "RaJiska/fck-nat/aws"
 
-  name                 = "nat-gw-${var.project}-${var.environment}"
+  name          = "nat-gw-${var.project}-${var.environment}"
   instance_type = "t4g.nano"
-  
-  vpc_id               = var.vpc_id
-  subnet_id            = var.public_subnet_1a_id
+
+  vpc_id    = var.vpc_id
+  subnet_id = var.public_subnet_1a_id
 
   attach_ssm_policy = true
 }

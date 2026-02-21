@@ -67,12 +67,12 @@ resource "aws_cloudwatch_log_group" "api" {
 }
 
 resource "aws_ecs_task_definition" "api" {
-	family 									 = "${var.project}-${var.environment}-api"
-	network_mode 						 = "awsvpc"
-	requires_compatibilities = ["FARGATE"]
-	cpu                      = 256
+  family                   = "${var.project}-${var.environment}-api"
+  network_mode             = "awsvpc"
+  requires_compatibilities = ["FARGATE"]
+  cpu                      = 256
   memory                   = 512
-	execution_role_arn 			 = aws_iam_role.ecs_task_execution_role.arn
+  execution_role_arn       = aws_iam_role.ecs_task_execution_role.arn
   task_role_arn            = aws_iam_role.ecs_task_role.arn
 
   runtime_platform {
@@ -80,18 +80,18 @@ resource "aws_ecs_task_definition" "api" {
     cpu_architecture        = "ARM64"
   }
 
-	container_definitions = jsonencode([
-		{
-			name 			= "${var.project}-${var.environment}-api"
+  container_definitions = jsonencode([
+    {
+      name      = "${var.project}-${var.environment}-api"
       image     = "${aws_ecr_repository.api.repository_url}:latest"
-			essential = true
-			portMappings = [
-				{
-					containerPort = 8080
-					protocol			= "tcp"
-				}
-			]
-			logConfiguration = {
+      essential = true
+      portMappings = [
+        {
+          containerPort = 8080
+          protocol      = "tcp"
+        }
+      ]
+      logConfiguration = {
         logDriver = "awslogs"
         options = {
           awslogs-group         = aws_cloudwatch_log_group.api.name
@@ -118,19 +118,19 @@ resource "aws_ecs_task_definition" "api" {
         retries     = 5
         startPeriod = 20
       }
-		}
-	])
+    }
+  ])
 }
 
 resource "aws_security_group" "alb" {
-	name   = "${var.project}-${var.environment}-alb"
+  name   = "${var.project}-${var.environment}-alb"
   vpc_id = var.vpc_id
 
-	ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+  ingress {
+    from_port       = 80
+    to_port         = 80
+    protocol        = "tcp"
+    cidr_blocks     = ["0.0.0.0/0"]
     prefix_list_ids = [data.aws_ec2_managed_prefix_list.cloudfront.id]
   }
 
@@ -203,23 +203,23 @@ resource "aws_lb_listener" "api" {
 }
 
 resource "aws_ecs_service" "api" {
-	name 						= "${var.project}-${var.environment}-api-ecs-service"
-	cluster 				= aws_ecs_cluster.main.id
-	task_definition = aws_ecs_task_definition.api.arn
-	desired_count 	= 1
-	launch_type 		= "FARGATE"
+  name            = "${var.project}-${var.environment}-api-ecs-service"
+  cluster         = aws_ecs_cluster.main.id
+  task_definition = aws_ecs_task_definition.api.arn
+  desired_count   = 1
+  launch_type     = "FARGATE"
 
-	network_configuration {
-		subnets 				 = [aws_subnet.private_1a.id, aws_subnet.private_1b.id]
-		security_groups  = [aws_security_group.ecs_api.id]
-		assign_public_ip = false
-	}
+  network_configuration {
+    subnets          = [aws_subnet.private_1a.id, aws_subnet.private_1b.id]
+    security_groups  = [aws_security_group.ecs_api.id]
+    assign_public_ip = false
+  }
 
-	load_balancer {
-		target_group_arn = aws_lb_target_group.api.arn
-		container_name 	 = "${var.project}-${var.environment}-api"
-		container_port 	 = 8080
-	}
+  load_balancer {
+    target_group_arn = aws_lb_target_group.api.arn
+    container_name   = "${var.project}-${var.environment}-api"
+    container_port   = 8080
+  }
 
   deployment_minimum_healthy_percent = 100
   deployment_maximum_percent         = 200
@@ -228,9 +228,9 @@ resource "aws_ecs_service" "api" {
     rollback = true
   }
 
-	depends_on = [ aws_lb_listener.api ]
+  depends_on = [aws_lb_listener.api]
 
   lifecycle {
-    ignore_changes = [ task_definition ]
+    ignore_changes = [task_definition]
   }
 }
