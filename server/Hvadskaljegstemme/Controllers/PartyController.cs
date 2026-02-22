@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Hvadskaljegstemme.Controllers;
 
 [ApiController]
-[Route("parties")]
+[Route("api/parties")]
 public class PartyController(AppDbContext db) : ControllerBase
 {
     private readonly AppDbContext _db = db;
