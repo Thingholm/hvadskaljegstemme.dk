@@ -26,6 +26,10 @@ function RouteComponent() {
 	const search = useSearch({ from: Route.id });
 	const retake: boolean = search.retake;
 
+	if (retake) {
+		setUserAnswers([]);
+	}
+
 	const { data: bills, isLoading, error } = useQuery({
 		queryKey: ["bills"],
 		queryFn: fetchBills
