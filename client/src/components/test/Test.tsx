@@ -40,6 +40,7 @@ export default function Test({
 		}));
 
         setSubmittedAnswers(answersToSubmit);
+		setUserAnswers([]);
 
 		navigate({ to: '/resultat/' });
 	}
