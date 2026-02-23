@@ -8,6 +8,7 @@ import TestQuestionDialog from './TestQuestionDialog'
 import type { Bill } from '../../lib/types/bill'
 import type { VoteWithSkip } from '../../lib/types/vote'    
 import type { UserAnswer } from '../../lib/types/user-answer'
+import Section from '../layout/Section'
 
 export default function Test({
     userUUID,
@@ -64,7 +65,7 @@ export default function Test({
 	}
 
 	return (
-		<div className='flex flex-col min-h-[calc(100dvh-3rem)] md:bg-gray-100 justify-between'>
+		<Section>
 			<div>
 				<div className="px-4 md:px-0 md:mx-16 lg:mx-32 pt-3 md:pt-6 lg:pt-8 xl:pt-10 2xl:pt-12 pb-4 bg-gray-100 md:bg-auto xl:max-w-5xl xl:mx-auto">
 					<TestProgress currentProgress={questionIndex} totalProgress={bills.length} />
@@ -121,13 +122,13 @@ export default function Test({
 						<ChevronLeft size={20}/>
 						Tilbage
 					</Button>
-				) : <div />}
+				) : <div />}	
 				<Button onClick={() => handleUserAnswer(null, currentBill)} className='pl-6'>
 					{questionIndex < bills.length - 1 ? "Næste" : "Afslut"}
 					<ChevronRight size={20} />
 				</Button>
 			</div>
 			{showDialog && <TestQuestionDialog bill={currentBill} closeDialog={() => setShowDialog(false)}/>}
-		</div>
+		</Section>
 	)
 }
