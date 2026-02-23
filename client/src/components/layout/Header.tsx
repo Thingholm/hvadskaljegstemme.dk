@@ -52,7 +52,7 @@ export default function Header() {
             <div className={`${isOpen ? "opacity-50 pointer-events-auto" : "opacity-0 pointer-events-none"} md:hidden fixed inset-0 top-12 bg-black duration-150 z-10`} onClick={closeMenu} />
 
             <nav className={`${isOpen ? "translate-x-0" : "translate-x-full"} absolute md:hidden top-12 right-0 bg-white shadow-lg h-screen duration-300 z-10`}>
-                <ul className="py-2 text-end flex flex-col gap-4 px-4">
+                <ul className="py-2 text-end flex flex-col items-end gap-4 px-4">
                     {menuItems.map((item) => (
                         <li key={item.path}>
                             <Link
