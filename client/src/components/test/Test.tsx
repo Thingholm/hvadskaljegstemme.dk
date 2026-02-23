@@ -8,15 +8,16 @@ import TestQuestionDialog from './TestQuestionDialog'
 import type { Bill } from '../../lib/types/bill'
 import type { VoteWithSkip } from '../../lib/types/vote'    
 import type { UserAnswer } from '../../lib/types/user-answer'
+import { submitUserAnswers } from '../../lib/api/userAnswers'
 
 export default function Test({
-    userUUID,
+    userId,
     userAnswers,
     setUserAnswers,
     setSubmittedAnswers,
 	bills,
 }: Readonly<{
-    userUUID: string;
+    userId: string;
     userAnswers: Record<number, VoteWithSkip>;
     setUserAnswers: (answers: Record<number, VoteWithSkip>) => void;
     setSubmittedAnswers: (answers: UserAnswer[]) => void;
@@ -39,12 +40,12 @@ export default function Test({
 		}
 
 		const answersToSubmit = Object.entries(updatedUserAnswers).map(([billId, vote]) => ({
-			userUuid: userUUID,
+			userId: userId,
 			billId: Number(billId),
 			vote,
-			answeredAt: new Date().toISOString(),
 		}));
 
+		submitUserAnswers(answersToSubmit)
         setSubmittedAnswers(answersToSubmit);
 		setUserAnswers([]);
 

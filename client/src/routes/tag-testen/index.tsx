@@ -17,7 +17,7 @@ export const Route = createFileRoute('/tag-testen/')({
 })
 
 function RouteComponent() {
-	const [userUUID] = useLocalStorage<string>("userUUID", crypto.randomUUID());
+	const [userId] = useLocalStorage<string>("userId", crypto.randomUUID());
 	const [userAnswers, setUserAnswers] = useLocalStorage<Record<number, VoteWithSkip>>("userAnswers", []);
 	const [submittedAnswers, setSubmittedAnswers] = useLocalStorage<UserAnswer[]>("submittedAnswers", []);
 	const [hasAnswered, setHasAnswered] = useState(submittedAnswers.length > 0);
@@ -64,7 +64,7 @@ function RouteComponent() {
 	
 	return (
 		<Test 
-			userUUID={userUUID} 
+			userId={userId} 
 			userAnswers={userAnswers} 
 			setUserAnswers={setUserAnswers} 
 			setSubmittedAnswers={setSubmittedAnswers}
