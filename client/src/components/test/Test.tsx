@@ -8,7 +8,6 @@ import TestQuestionDialog from './TestQuestionDialog'
 import type { Bill } from '../../lib/types/bill'
 import type { VoteWithSkip } from '../../lib/types/vote'    
 import type { UserAnswer } from '../../lib/types/user-answer'
-import Section from '../layout/Section'
 
 export default function Test({
     userUUID,
@@ -25,15 +24,21 @@ export default function Test({
 }>) {
 	const [questionIndex, setQuestionIndex] = useState(Object.keys(userAnswers).length < bills.length ? bills.findIndex(bill => !(bill.id in userAnswers)) || 0 : 0);
 	const [showDialog, setShowDialog] = useState(false);
+	const [validationMessage, setValidationMessage] = useState<string | null>(null);
 	
 	const navigate = useNavigate();
 
 	const currentBill = bills[questionIndex];
 
-	const handleFinalize = () => {
+	const handleFinalize = (updatedUserAnswers: Record<number, VoteWithSkip>) => {
 		if (typeof window === "undefined") return;
 
-		const answersToSubmit = Object.entries(userAnswers).map(([billId, vote]) => ({
+		if (Object.entries(updatedUserAnswers).filter(([_, vote]) => vote !== "skip").length < 1) {
+			setValidationMessage("Ingen spørgsmål er besvaret. Venligst besvar mindst et spørgsmål for at afslutte testen og se dit resultat.");
+			return;
+		}
+
+		const answersToSubmit = Object.entries(updatedUserAnswers).map(([billId, vote]) => ({
 			userUuid: userUUID,
 			billId: Number(billId),
 			vote,
@@ -47,13 +52,21 @@ export default function Test({
 	}
 
 	const handleUserAnswer = (vote: VoteWithSkip | null, bill: Bill) => {
+		if (vote && vote !== "skip") {
+			setValidationMessage(null);
+		}
+
+		const updatedUserAnswers = vote 
+			? {...userAnswers, [bill.id]: vote} 
+			: userAnswers
+
 		if (vote) {
-			setUserAnswers({...userAnswers, [bill.id]: vote});
+			setUserAnswers(updatedUserAnswers);
 		}
 
 		if (questionIndex === bills.length - 1) {
-			handleFinalize();
-			return
+			handleFinalize(updatedUserAnswers);
+			return;
 		}
 
 		setQuestionIndex(q => q + 1);
@@ -65,7 +78,7 @@ export default function Test({
 	}
 
 	return (
-		<Section>
+		<div className='flex flex-col min-h-[calc(100dvh-3rem)] md:min-h-auto bg-white md:bg-gray-100 justify-between'>
 			<div>
 				<div className="px-4 md:px-0 md:mx-16 lg:mx-32 pt-3 md:pt-6 lg:pt-8 xl:pt-10 2xl:pt-12 pb-4 bg-gray-100 md:bg-auto xl:max-w-5xl xl:mx-auto">
 					<TestProgress currentProgress={questionIndex} totalProgress={bills.length} />
@@ -114,6 +127,9 @@ export default function Test({
 							<ChevronRight size={20} />
 						</Button>
 					</div>
+					{(validationMessage?.length ?? 0) > 0 && (
+						<p className='text-red-600 text-sm md:text-center'>{validationMessage}</p>
+					)}
 				</div>
 			</div>
 			<div className='flex justify-between px-4 py-4 border-t border-gray-200 md:hidden'>
@@ -129,6 +145,6 @@ export default function Test({
 				</Button>
 			</div>
 			{showDialog && <TestQuestionDialog bill={currentBill} closeDialog={() => setShowDialog(false)}/>}
-		</Section>
+		</div>
 	)
 }
