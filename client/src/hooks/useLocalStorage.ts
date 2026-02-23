@@ -1,47 +1,66 @@
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 const IS_SERVER = typeof window === "undefined";
 
 export function useLocalStorage<T>(key: string, initialValue: T): [T, (value: T) => void, () => void] {
-    const [storedValue, setStoredValue] = useState<T>(() => {
-        if (IS_SERVER) {
-            return initialValue;
-        }
+    const initialValueRef = useRef(initialValue);
+    
+    const readValue = useCallback(() => {
+        if (IS_SERVER) return initialValueRef.current;
 
         try {
             const item = window.localStorage.getItem(key);
 
             if (!item) {
-                console.log(initialValue)
-
-                window.localStorage.setItem(key, JSON.stringify(initialValue));
-                return initialValue;
+                window.localStorage.setItem(key, JSON.stringify(initialValueRef.current));
+                return initialValueRef.current;
             }
 
             return JSON.parse(item);
         } catch (error) {
             console.error(`Error reading localStorage key "${key}":`, error);
-            return initialValue;
+            return initialValueRef.current;
         }
-    });
+    }, [key]);
+    
+    const [storedValue, setStoredValue] = useState<T>(() => readValue())
 
-    const setValue = (value: T) => {
+    useEffect(() => {
+        const handleStorageChange = (event: Event) => {
+            if (event instanceof StorageEvent && event.key !== key) return;
+            setStoredValue(readValue());
+        };
+
+        window.addEventListener("storage", handleStorageChange)
+        window.addEventListener(`local-storage:${key}`, handleStorageChange);
+
+        return () => {
+            window.removeEventListener("storage", handleStorageChange);
+            window.removeEventListener(`local-storage:${key}`, handleStorageChange);
+        };
+    }, [key, readValue]);
+
+    const setValue = useCallback((value: T | ((prev: T) => T)) => {
         if (IS_SERVER) {
             console.warn(`Tried setting localStorage key "${key}" in a server environment.`);
             return;
         }
 
         try {
-            const valueToStore = value instanceof Function ? value(storedValue) : value;
+            const valueToStore = value instanceof Function 
+            ? (value as (prev: T) => T)(storedValue) 
+            : value;
 
             window.localStorage.setItem(key, JSON.stringify(valueToStore));
             setStoredValue(valueToStore);
+
+            window.dispatchEvent(new Event(`local-storage:${key}`));
         } catch (error) {
             console.error(`Error setting localStorage key "${key}":`, error);
         }
-    };
+    }, [key, storedValue]);
 
-    const removeValue = () => {
+    const removeValue = useCallback(() => {
         if (IS_SERVER) {
             console.warn(`Tried removing localStorage key "${key}" in a server environment.`);
             return;
@@ -49,11 +68,13 @@ export function useLocalStorage<T>(key: string, initialValue: T): [T, (value: T)
 
         try {
             window.localStorage.removeItem(key);
-            setStoredValue(initialValue);
+            setStoredValue(initialValueRef.current);
+
+            window.dispatchEvent(new Event(`local-storage:${key}`));
         } catch (error) {
             console.error(`Error removing localStorage key "${key}":`, error);
         }
-    };
+    }, [key]);
 
     return [storedValue, setValue, removeValue];
 }
