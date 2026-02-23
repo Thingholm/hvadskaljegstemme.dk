@@ -2,7 +2,7 @@ import { createFileRoute, useSearch } from '@tanstack/react-router'
 import Test from '../../components/test/Test'
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import type { VoteWithSkip } from '../../lib/types/vote';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ContinueOrRestartTest from '../../components/test/ContinueOrRestartTest';
 import type { UserAnswer } from '../../lib/types/user-answer';
 import { useQuery } from '@tanstack/react-query';
@@ -26,9 +26,11 @@ function RouteComponent() {
 	const search = useSearch({ from: Route.id });
 	const retake: boolean = search.retake;
 
-	if (retake) {
-		setUserAnswers([]);
-	}
+	useEffect(() => {
+		if (retake) {
+			setUserAnswers([]);
+		}
+	}, [retake]);
 
 	const { data: bills, isLoading, error } = useQuery({
 		queryKey: ["bills"],
