@@ -11,10 +11,12 @@ export default function ResultCard({
     userResult,
     userAnswers,
     bills,
+    partyVotes,
 }: Readonly<{
     userResult: PartyMatch;
     userAnswers: UserAnswer[];
     bills: Bill[];
+    partyVotes: PartyVote[]
 }>) {
     const [isExpanded, setIsExpanded] = useState(false);
 
@@ -51,7 +53,7 @@ export default function ResultCard({
                     {bills.map(bill => {
                         const userAnswer = userAnswers.find(ua => ua.billId === bill.id);
                         const partyAnswer = {
-                            ...userResult.partyVotes.find(pv => pv.billId === bill.id),
+                            ...partyVotes.find(pv => pv.billId === bill.id),
                             party: userResult.party
                         } as PartyVote;
 

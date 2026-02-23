@@ -1,6 +1,5 @@
 import type { Bill } from "../../lib/types/bill";
 import type { Party } from "../../lib/types/party";
-import type { PartyVote } from "../../lib/types/party-vote";
 import type { UserAnswer } from "../../lib/types/user-answer";
 import type { Vote } from "../../lib/types/vote";
 
@@ -9,7 +8,6 @@ export type PartyMatch = {
     score: number;
     maxScore: number;
     percentage: number;
-    partyVotes: PartyVote[];
 }
 
 export function calculateUserResult(bills: Bill[], userAnswers: UserAnswer[], parties: Party[]): PartyMatch[] {
@@ -37,7 +35,6 @@ export function calculateUserResult(bills: Bill[], userAnswers: UserAnswer[], pa
 
         partyVote.score += calculatePartyMatchScore(pv.vote, userVote);
         partyVote.maxScore++;
-        partyVote.partyVotes.push(pv);
 
         partyMatchDictionary[pv.partyId] = partyVote
     });

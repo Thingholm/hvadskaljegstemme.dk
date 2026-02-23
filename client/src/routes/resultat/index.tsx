@@ -11,6 +11,7 @@ import { useQuery } from '@tanstack/react-query';
 import { fetchBills } from '../../lib/api/bills';
 import PageSkeleton from '../../components/PageSkeleton';
 import { fetchParties } from '../../lib/api/parties';
+import type { PartyVote } from '../../lib/types/party-vote';
 
 export const Route = createFileRoute('/resultat/')({
   component: RouteComponent,
@@ -58,6 +59,8 @@ function RouteComponent() {
         .sort((a, b) => a.party.letter.toLowerCase().localeCompare(b.party.letter.toLowerCase()))
         .sort((a, b) => b.score - a.score);
 
+    const partyVotes = bills.flatMap(bill => bill.partyVotes.map(partyVote => ({...partyVote, billId: bill.id} as PartyVote)));
+
     return (
         <CardSection className='md:p-6!'>
             <div className='md:px-4 grid gap-2 pb-2 md:pb-0'>
@@ -71,6 +74,7 @@ function RouteComponent() {
                         userResult={ur}
                         userAnswers={submittedAnswers}
                         bills={bills}
+                        partyVotes={partyVotes}
                     />
                 ))}
             </div>
