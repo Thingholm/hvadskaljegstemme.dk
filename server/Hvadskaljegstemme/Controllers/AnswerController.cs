@@ -2,12 +2,11 @@ using Hvadskaljegstemme.Dtos;
 using Hvadskaljegstemme.Common;
 using Hvadskaljegstemme.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Hvadskaljegstemme.Controllers;
 
 [ApiController]
-[Route("answers")]
+[Route("api/answers")]
 public class AnswerController(AnswerService answerService) : ControllerBase
 {
     private readonly AnswerService _answerService = answerService;

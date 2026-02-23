@@ -1,13 +1,11 @@
-using Hvadskaljegstemme.Dtos;
 using Hvadskaljegstemme.Data;
-using Hvadskaljegstemme.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Hvadskaljegstemme.Controllers;
 
 [ApiController]
-[Route("bills")]
+[Route("api/bills")]
 public class BillController(AppDbContext db) : ControllerBase
 {
     private readonly AppDbContext _db = db;
