@@ -13,11 +13,7 @@ function HomePage() {
     return (
         <div className="bg-white">
             <HeroSection />
-            <KeyNumbersSection 
-                answersCount={7210}
-                billCount={28}
-                partyCount={11}
-            />
+            <KeyNumbersSection />
             <AboutSection />
             <TestExampleSection />
             <TakeTestSection />
