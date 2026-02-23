@@ -6,5 +6,7 @@ public enum Vote
 
     Against,
 
-    Neither
+    Neither,
+
+    Skip
 }
