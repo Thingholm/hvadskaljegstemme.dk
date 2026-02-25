@@ -90,9 +90,9 @@ resource "aws_cloudfront_function" "redirect_to_index_html" {
 
 resource "aws_cloudfront_cache_policy" "website_cache_policy" {
   name        = "website-cache-policy-${var.project}-${var.environment}"
-  default_ttl = 360
+  default_ttl = 0
   min_ttl     = 0
-  max_ttl     = 86400
+  max_ttl     = 31536000
 
   parameters_in_cache_key_and_forwarded_to_origin {
     cookies_config {
@@ -111,7 +111,7 @@ resource "aws_cloudfront_cache_policy" "api_cache_policy" {
   name        = "api-cache-policy-${var.project}-${var.environment}"
   min_ttl     = 0
   default_ttl = 0
-  max_ttl     = 0
+  max_ttl     = 300
 
   parameters_in_cache_key_and_forwarded_to_origin {
     cookies_config {
