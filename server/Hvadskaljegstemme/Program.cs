@@ -3,9 +3,8 @@ using Hvadskaljegstemme.Services;
 using Hvadskaljegstemme.Models.Enums;
 using Hvadskaljegstemme.Middleware;
 using System.Text.Json;
-using Serilog;
-using Serilog.Formatting.Compact;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.HttpLogging;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,12 +34,14 @@ builder.Services.AddCors(options =>
     });
 });
 
-builder.Host.UseSerilog((context, configuration) =>
+builder.Services.AddHttpLogging(logging =>
 {
-    configuration
-        .WriteTo.Console(new CompactJsonFormatter())
-        .MinimumLevel.Information();
+    logging.LoggingFields = HttpLoggingFields.All;
+    logging.RequestBodyLogLimit = 4096;
+    logging.ResponseBodyLogLimit = 4096;
+    logging.CombineLogs = true;
 });
+
 
 builder.Services.AddScoped<AnswerService>();
 
@@ -69,7 +70,7 @@ if (app.Environment.IsProduction())
     app.UseHttpsRedirection();
 }
 
-app.UseMiddleware<RequestLogger>();
+app.UseHttpLogging();
 app.UseMiddleware<ExceptionHandler>();
 
 app.UseAuthorization();
