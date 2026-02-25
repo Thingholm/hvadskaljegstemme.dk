@@ -21,3 +21,8 @@ variable "public_subnet_1a_id" {
   type    = string
   default = "subnet-0cabfd4db0a0989ca"
 }
+
+variable "domain_name" {
+  type    = string
+  default = "hvadskaljegstemme.dk"
+}

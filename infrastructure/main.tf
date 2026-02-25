@@ -19,3 +19,9 @@ provider "aws" {
   region  = "eu-north-1"
   profile = "AdministratorAccess-278584440423"
 }
+
+provider "aws" {
+  alias  = "us_east_1"
+  region = "us-east-1"
+  profile = "AdministratorAccess-278584440423"
+}
