@@ -3,8 +3,6 @@ import Section from "../layout/Section";
 import { fetchBills } from "../../lib/api/bills";
 import { fetchParties } from "../../lib/api/parties";
 
-const answersCount = 7201
-
 function KeyNumberBlock({
     label,
     value,
@@ -40,11 +38,11 @@ export default function KeyNumbersSection() {
     
     return (
         <Section className="bg-gray-100 py-6 md:py-8">
-            <div className="grid grid-cols-2 gap-y-8 md:grid-cols-4 xl:max-w-5xl xl:mx-auto">
-                <KeyNumberBlock label="Har taget testen" value={answersCount}/>
-                <KeyNumberBlock label="Spørgsmål" value={bills?.length} isLoading={isLoadingBills} fallbackValue="XX"/>
+            <div className="grid grid-cols-3 gap-y-8 md:grid-cols-3 xl:max-w-5xl xl:mx-auto">
+                {/* <KeyNumberBlock label="Har taget testen" value={##}/> */}
+                <KeyNumberBlock label="Forslag" value={bills?.length} isLoading={isLoadingBills} fallbackValue="XX"/>
                 <KeyNumberBlock label="Partier" value={parties?.length} isLoading={isLoadingParties} fallbackValue="XX"/>
-                <KeyNumberBlock label="Transparens" value={"100%"}/>
+                <KeyNumberBlock label="Gennemsigtighed" value={"100%"}/>
             </div>
         </Section>
     )
