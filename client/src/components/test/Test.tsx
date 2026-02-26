@@ -9,6 +9,7 @@ import type { Bill } from '../../lib/types/bill'
 import type { VoteWithSkip } from '../../lib/types/vote'    
 import type { UserAnswer } from '../../lib/types/user-answer'
 import { submitUserAnswers } from '../../lib/api/userAnswers'
+import Badge from '../ui/Badge'
 
 export default function Test({
     userId,
@@ -85,7 +86,8 @@ export default function Test({
 					<TestProgress currentProgress={questionIndex} totalProgress={bills.length} />
 				</div>
 				<div className="flex flex-col gap-4 bg-white p-4 md:p-8 border-t border-gray-200 md:border-none md:mx-16 lg:mx-32 md:rounded-xl md:shadow-md md:items-center xl:max-w-5xl xl:mx-auto xl:pt-10">
-					<h2 className="text-3xl md:text-2xl text-pretty font-bold md:text-center">{currentBill.question}</h2>
+					<Badge className='capitalize'>{currentBill.billType}{currentBill.isPassed ? " - Vedtaget" : ""}</Badge>
+					<h2 className="text-2xl text-pretty font-bold md:text-center">{currentBill.question}</h2>
 					<Button
 						variant="mobileText"
 						onClick={() => setShowDialog(true)}

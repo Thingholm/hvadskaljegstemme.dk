@@ -9,7 +9,8 @@ export type Bill = {
     forExplanation: string;
     againstExplanation: string;
     url: string;
-    voteDate: string;
+    votedAt: string;
     isPassed: boolean;
+    billType: string;
     partyVotes: PartyVoteResponseDTO[];
 };

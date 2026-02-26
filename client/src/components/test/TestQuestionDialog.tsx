@@ -2,6 +2,7 @@ import { ThumbsDown, ThumbsUp, X } from "lucide-react";
 import type { Bill } from "../../lib/types/bill";
 import Badge from "../ui/Badge";
 import Button from "../ui/Button";
+import { formatDateString } from "../../utils/helpers/dateString";
 
 export default function TestQuestionDialog({
     bill,
@@ -16,9 +17,9 @@ export default function TestQuestionDialog({
             <div className="bg-white m-4 md:m-8 relative rounded-lg shadow-lg w-full z-10  max-w-6xl overflow-hidden">
                 <div className="p-6 md:p-8 grid gap-2 max-h-[calc(100dvh-6rem)] overflow-y-auto">
                     <button onClick={closeDialog} className="absolute top-5.5 right-5.5 p-1 hover:cursor-pointer hover:bg-gray-200 rounded-full duration-150"><X/></button>
-                    <Badge>{bill.billTag}</Badge>
+                    <Badge className="capitalize">{bill.billTag} - {bill.billType}</Badge>
                     <h3 className="text-xl font-bold">{bill.title}</h3>
-                    <p className="text-sm text-gray-500">Afstemning: {bill.voteDate}</p>
+                    <p className="text-sm text-gray-500">Afstemning: {formatDateString(bill.votedAt)} ({bill.isPassed ? "Vedtaget" : "Forkastet"})</p>
                     <p>{bill.description}</p>
                     <Button variant="mobileText" to={bill.url} target="_blank">
                         Læs lovforslaget her

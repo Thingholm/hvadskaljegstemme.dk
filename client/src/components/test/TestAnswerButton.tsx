@@ -4,7 +4,7 @@ import type { Vote } from "../../lib/types/vote";
 const voteTranslations: Record<Vote, string> = {
     for: "For",
     against: "Imod",
-    neither: "Hverken eller",
+    neither: "Hverken/eller",
 }
 
 const voteIcons: Record<Vote, React.ReactNode> = {
