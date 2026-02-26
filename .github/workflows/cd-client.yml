@@ -39,4 +39,11 @@ jobs:
           aws-region: eu-north-1
 
       - name: Deploy to S3
-        run: aws s3 sync ./client/dist s3://hsjs-website-prod --delete
+        run: | 
+              aws s3 sync ./client/dist s3://hsjs-website-prod \
+                --exclude "index.html" \
+                --cache-control "public,max-age=31536000,immutable" \
+                --delete
+              aws s3 cp ./client/dist/index.html s3://hsjs-website-prod/index.html \
+                --cache-control "public,max-age=60"
+
