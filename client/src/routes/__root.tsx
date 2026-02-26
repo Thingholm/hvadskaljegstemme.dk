@@ -10,7 +10,7 @@ function RootComponent() {
     return (
         <div className="flex flex-col min-h-screen">
             <Header />
-            <main className="flex-1 pt-12 bg-gray-100">
+            <main className="flex-1 pt-12 bg-white md:bg-gray-100">
                 <Outlet />
             </main>
             <Footer />

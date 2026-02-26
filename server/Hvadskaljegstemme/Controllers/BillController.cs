@@ -24,6 +24,8 @@ public class BillController(AppDbContext db) : ControllerBase
             b.AgainstExplanation,
             b.Url,
             b.IsPassed,
+            b.BillType,
+            b.VotedAt,
             b.PartyVotes.Select(pv => new Dtos.PartyVote(pv.PartyId, pv.Vote))
         ));
         return Ok(billDtos);

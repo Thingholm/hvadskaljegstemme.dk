@@ -2,7 +2,7 @@ import { createFileRoute, useSearch } from '@tanstack/react-router'
 import Test from '../../components/test/Test'
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import type { VoteWithSkip } from '../../lib/types/vote';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ContinueOrRestartTest from '../../components/test/ContinueOrRestartTest';
 import type { UserAnswer } from '../../lib/types/user-answer';
 import { useQuery } from '@tanstack/react-query';
@@ -17,7 +17,7 @@ export const Route = createFileRoute('/tag-testen/')({
 })
 
 function RouteComponent() {
-	const [userUUID] = useLocalStorage<string>("userUUID", crypto.randomUUID());
+	const [userId] = useLocalStorage<string>("userId", crypto.randomUUID());
 	const [userAnswers, setUserAnswers] = useLocalStorage<Record<number, VoteWithSkip>>("userAnswers", []);
 	const [submittedAnswers, setSubmittedAnswers] = useLocalStorage<UserAnswer[]>("submittedAnswers", []);
 	const [hasAnswered, setHasAnswered] = useState(submittedAnswers.length > 0);
@@ -25,6 +25,12 @@ function RouteComponent() {
 
 	const search = useSearch({ from: Route.id });
 	const retake: boolean = search.retake;
+
+	useEffect(() => {
+		if (retake) {
+			setUserAnswers([]);
+		}
+	}, [retake]);
 
 	const { data: bills, isLoading, error } = useQuery({
 		queryKey: ["bills"],
@@ -64,7 +70,7 @@ function RouteComponent() {
 	
 	return (
 		<Test 
-			userUUID={userUUID} 
+			userId={userId} 
 			userAnswers={userAnswers} 
 			setUserAnswers={setUserAnswers} 
 			setSubmittedAnswers={setSubmittedAnswers}

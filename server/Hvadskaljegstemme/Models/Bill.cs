@@ -1,3 +1,5 @@
+using Hvadskaljegstemme.Models.Enums;
+
 namespace Hvadskaljegstemme.Models;
 
 public class Bill
@@ -21,4 +23,8 @@ public class Bill
     public ICollection<PartyVote> PartyVotes { get; set; } = [];
 
     public bool IsPassed { get; set; }
+
+    public DateOnly VotedAt { get; set; }
+
+    public BillType BillType { get; set; }
 }

@@ -1,8 +1,7 @@
 import type { VoteWithSkip } from "./vote";
 
 export type UserAnswer = {
-    userUuid: string;
+    userId: string;
     billId: number;
     vote: VoteWithSkip;
-    answeredAt: string; // ISO date string
 }

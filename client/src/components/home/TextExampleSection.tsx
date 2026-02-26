@@ -8,18 +8,20 @@ import TestAnswerButton from "../test/TestAnswerButton";
 import { useState } from "react";
 import type { Vote } from "../../lib/types/vote";
 import SectionTitle from "../ui/SectionTitle";
+import Badge from "../ui/Badge";
 
 const exampleBill: Bill = {
     id: 1,
-    billTag: "L 42",
-    title: "Forslag til lov om ændring af skatteloven",
-    question: "Skal der indføres en ny grøn afgift på dieselbiler?",
-    description: "Dette lovforslag vedrører indførelse af en progressiv afgift på dieselbiler for at fremme grøn omstilling og reducere CO2-udledning fra transportsektoren.",
-    forExplanation: "En grøn afgift vil accelerere overgangen til elbiler, reducere luftforurening i byerne og hjælpe Danmark med at nå klimamålene for 2030.",
-    againstExplanation: "Afgiften vil ramme håndværkere og landdistrikter uforholdsmæssigt hårdt, hvor dieselbiler er nødvendige, og vil udgøre en økonomisk byrde for almindelige familier.",
-    url: "https://www.ft.dk/forslag/L42",
-    voteDate: "2024-03-15",
+    billTag: "L 13",
+    title: "Forslag til lov om konsekvenser ved afskaffelsen af store bededag som helligdag.",
+    question: "Det var den rigtige beslutning at afskaffe store bededag",
+    description: "Lovforslaget gik ud på at afskaffe store bededag som helligdag og gøre dagen til en almindelig arbejdsdag. Lønmodtagere kompenseres økonomisk for den ekstra arbejdsdag. Formålet var at øge arbejdsudbuddet.",
+    forExplanation: "Det gav flere arbejdstimer og penge til velfærd og forsvar. Danmark har brug for flere hænder på arbejdsmarkedet.",
+    againstExplanation: "Det fjernede en vigtig fridag for mange danskere. Tradition og fritid blev ofret for økonomi.",
+    url: "https://www.ft.dk/samling/20222/lovforslag/L13/index.htm",
+    votedAt: "2023-02-28",
     isPassed: true,
+    billType: "Lovforslag",
     partyVotes: []
 }
 
@@ -35,14 +37,15 @@ export default function TestExampleSection() {
         <Section className="bg-gray-100 grid gap-6 py-6 md:py-8">
             <div className="text-center grid gap-2">
                 <SectionTitle>Sådan fungerer det</SectionTitle>
-                <p className="text-gray-600 xl:max-w-5xl xl:mx-auto text-pretty">For at læse mere om spørgsmålet og argumenter for og imod, kan du klikke på <span className="italic">Se mere om spørgsmålet</span>. Hvis spørgsmålet springes over, medregnes det ikke i resultatet og er derfor ikke det samme som <span  className="italic">hverken eller</span>.</p>
+                <p className="text-gray-600 xl:max-w-5xl xl:mx-auto text-pretty">For at læse mere om spørgsmålet og argumenter for og imod, kan du klikke på <span className="italic">Se mere om spørgsmålet</span>. Hvis spørgsmålet springes over, medregnes det ikke i resultatet og er derfor ikke det samme som <span  className="italic">hverken/eller</span>.</p>
             </div>
             <div className="rounded-xl border border-gray-200 md:border-hidden overflow-hidden">
                 <div>
                     <div className="px-4 md:px-0 pt-3 2xl:pt-12 pb-4 bg-gray-100 md:bg-auto xl:max-w-5xl xl:mx-auto">
-                        <TestProgress currentProgress={12} totalProgress={28} />
+                        <TestProgress currentProgress={12} totalProgress={27} />
                     </div>
                     <div className="flex flex-col gap-4 bg-white p-4 md:p-8 border-t border-gray-200 md:border-none md:rounded-xl md:shadow-md md:items-center xl:max-w-5xl xl:mx-auto xl:pt-10">
+                        <Badge className='capitalize'>{exampleBill.billType}{exampleBill.isPassed ? " - Vedtaget" : ""}</Badge>
                         <h2 className="text-3xl md:text-2xl text-pretty font-bold md:text-center">{exampleBill.question}</h2>
                         <Button
                             variant="mobileText"

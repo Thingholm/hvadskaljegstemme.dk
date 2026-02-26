@@ -4,6 +4,7 @@ using Hvadskaljegstemme.Data;
 using Hvadskaljegstemme.Models.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -12,16 +13,17 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Hvadskaljegstemme.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260223142606_AddSkipToVote")]
+    partial class AddSkipToVote
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "10.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            NpgsqlModelBuilderExtensions.HasPostgresEnum(modelBuilder, "bill_type", new[] { "beslutningsforslag", "lovforslag", "borgerforslag" });
             NpgsqlModelBuilderExtensions.HasPostgresEnum(modelBuilder, "vote", new[] { "for", "against", "neither", "skip" });
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
@@ -43,10 +45,6 @@ namespace Hvadskaljegstemme.Migrations
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("bill_tag");
-
-                    b.Property<BillType>("BillType")
-                        .HasColumnType("bill_type")
-                        .HasColumnName("bill_type");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -76,10 +74,6 @@ namespace Hvadskaljegstemme.Migrations
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("url");
-
-                    b.Property<DateOnly>("VotedAt")
-                        .HasColumnType("date")
-                        .HasColumnName("voted_at");
 
                     b.HasKey("Id")
                         .HasName("pk_bills");

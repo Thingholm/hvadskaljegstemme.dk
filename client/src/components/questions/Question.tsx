@@ -20,7 +20,7 @@ export default function Question({
 
     return (
         <div className="not-last:border-b border-gray-300 pb-3 md:pb-6">
-            <p className="text-gray-500 text-sm">Spørgsmål {index}</p>
+            <p className="text-gray-500 text-sm">Forslag {index}</p>
             <h3 className="font-bold text-lg text-pretty">{billWithVotes.question}</h3>
             <Button variant="mobileText" onClick={() => setShowDialog(true)}>
                 Læs mere om forslaget

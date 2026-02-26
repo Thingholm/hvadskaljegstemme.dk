@@ -13,6 +13,8 @@ public record Bill
     string AgainstExplanation,
     string Url,
     bool IsPassed,
+    BillType BillType,
+    DateOnly VotedAt,
     IEnumerable<PartyVote> PartyVotes
 );
 
