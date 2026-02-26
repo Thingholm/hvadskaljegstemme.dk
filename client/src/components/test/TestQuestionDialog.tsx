@@ -13,29 +13,31 @@ export default function TestQuestionDialog({
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
             <div className="absolute inset-0 bg-black opacity-50" onClick={closeDialog}/>
-            <div className="bg-white relative m-4 md:m-8 p-6 md:p-8 rounded-lg shadow-lg w-full z-10 grid gap-2 max-w-6xl">
-                <button onClick={closeDialog} className="absolute top-5.5 right-5.5 p-1 hover:cursor-pointer hover:bg-gray-200 rounded-full duration-150"><X/></button>
-                <Badge>{bill.billTag}</Badge>
-                <h3 className="text-xl font-bold">{bill.title}</h3>
-                <p className="text-sm text-gray-500">Afstemning: {bill.voteDate}</p>
-                <p>{bill.description}</p>
-                <Button variant="mobileText" to={bill.url} target="_blank">
-                    Læs lovforslaget her
-                </Button>
-                <div className="grid gap-4 mt-2 md:grid-cols-2 md:gap-x-12">
-                    <div>
-                        <p className="flex items-center gap-3 mb-2">
-                            <ThumbsUp className="text-green-600" size={20}/>
-                            <span className="font-medium">Argumenter for</span>
-                        </p>
-                        <p>{bill.forExplanation}</p>
-                    </div>
-                    <div>
-                        <p className="flex items-center gap-3 mb-2">
-                            <ThumbsDown className="text-red-600" size={20}/>
-                            <span className="font-medium">Argumenter imod</span>
-                        </p>
-                        <p>{bill.againstExplanation}</p>
+            <div className="bg-white m-4 md:m-8 relative rounded-lg shadow-lg w-full z-10  max-w-6xl overflow-hidden">
+                <div className="p-6 md:p-8 grid gap-2 max-h-[calc(100dvh-6rem)] overflow-y-auto">
+                    <button onClick={closeDialog} className="absolute top-5.5 right-5.5 p-1 hover:cursor-pointer hover:bg-gray-200 rounded-full duration-150"><X/></button>
+                    <Badge>{bill.billTag}</Badge>
+                    <h3 className="text-xl font-bold">{bill.title}</h3>
+                    <p className="text-sm text-gray-500">Afstemning: {bill.voteDate}</p>
+                    <p>{bill.description}</p>
+                    <Button variant="mobileText" to={bill.url} target="_blank">
+                        Læs lovforslaget her
+                    </Button>
+                    <div className="grid gap-4 mt-2 md:grid-cols-2 md:gap-x-12">
+                        <div>
+                            <p className="flex items-center gap-3 mb-2">
+                                <ThumbsUp className="text-green-600" size={20}/>
+                                <span className="font-medium">Argumenter for</span>
+                            </p>
+                            <p>{bill.forExplanation}</p>
+                        </div>
+                        <div>
+                            <p className="flex items-center gap-3 mb-2">
+                                <ThumbsDown className="text-red-600" size={20}/>
+                                <span className="font-medium">Argumenter imod</span>
+                            </p>
+                            <p>{bill.againstExplanation}</p>
+                        </div>
                     </div>
                 </div>
             </div>
