@@ -11,13 +11,13 @@ const iconColorDictionary: Record<Vote, string> = {
 
 const labelDictionary: Record<Vote, string> = {
     "for": "For",
-    "neither": "Hverken eller",
+    "neither": "Hverken/eller",
     "against": "Imod"
 }
 
 const shortenedLabelDictionary: Record<Vote, string> = {
     "for": "For",
-    "neither": "Blank",
+    "neither": "Neutral",
     "against": "Imod"
 }
 
@@ -42,7 +42,16 @@ export default function VotesContainer({
         <div className="grid gap-2">
             <div className="flex items-center gap-2">
                 <div className={`block h-2 w-2 rounded-full ${iconColorDictionary[vote]}`}></div>
-                <p>{isShortenedOnMobile ? shortenedLabelDictionary[vote] : labelDictionary[vote]}</p>
+                <p>
+                    {isShortenedOnMobile 
+                        ? (
+                            <>
+                                <span className="md:hidden">{shortenedLabelDictionary[vote]}</span>
+                                <span className="hidden md:inline">{labelDictionary[vote]}</span>
+                            </>
+                        ): labelDictionary[vote]
+                    }
+                </p>
             </div>
             <div className="flex flex-wrap gap-1.5 items-start">
                 {parties.map(party => (

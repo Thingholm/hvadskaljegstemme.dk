@@ -74,7 +74,7 @@ function RouteComponent() {
                         userResult={ur}
                         userAnswers={submittedAnswers}
                         bills={bills}
-                        partyVotes={partyVotes}
+                        partyVotes={partyVotes.filter(pv => pv.partyId === ur.party.id)}
                     />
                 ))}
             </div>

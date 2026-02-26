@@ -29,7 +29,6 @@ export function calculateUserResult(bills: Bill[], userAnswers: UserAnswer[], pa
             party: parties.find(p => p.id === pv.partyId), 
             score: 0, 
             maxScore: 0,
-            partyVotes: []
         };
         if (!partyVote.party) return;
 
