@@ -7,9 +7,10 @@ namespace Hvadskaljegstemme.Controllers;
 
 [ApiController]
 [Route("api/answers")]
-public class AnswerController(AnswerService answerService) : ControllerBase
+public class AnswerController(AnswerService answerService, ILogger<AnswerController> logger) : ControllerBase
 {
     private readonly AnswerService _answerService = answerService;
+    private readonly ILogger<AnswerController> _logger = logger;
 
     [HttpPost]
     public async Task<ActionResult> PostAnswer([FromBody] List<Answer> answers)
@@ -17,23 +18,14 @@ public class AnswerController(AnswerService answerService) : ControllerBase
         var result = await _answerService.PostAnswer(answers);
         if (!result.IsSuccess)
         {
-            var logEvent = HttpContext.Items["LogEvent"] as Dictionary<string, object>;
-            var errorDict = new Dictionary<string, object>
-            {
-                ["Type"] = result.Error.GetType().Name,
-                ["Message"] = result.Error.Message
-            };
-            logEvent["Error"] = errorDict;
-            switch (result.Error)
-            {
-                case ValidationError:
-                    return BadRequest();
-                case DBError:
+            _logger.LogError("Error posting answer: {ErrorMessage}", result.Error.Message);
 
-                    return StatusCode(500);
-                default:
-                    return StatusCode(500);
-            }
+            return result.Error switch
+            {
+                ValidationError => BadRequest(),
+                DBError => StatusCode(500),
+                _ => StatusCode(500),
+            };
         }
 
         return Ok();

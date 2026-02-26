@@ -13,17 +13,17 @@ public class ExceptionHandler(RequestDelegate next, ILogger<ExceptionHandler> lo
         }
         catch (Exception ex)
         {
-            var logEvent = context.Items["LogEvent"] as Dictionary<string, object>;
+            _logger.LogError(ex, "An unhandled exception occurred while processing the request.");
 
             context.Response.StatusCode = 500;
             context.Response.ContentType = "application/json";
 
-            var error = new Dictionary<string, object>
+            var errorResponse = new
             {
-                ["ExceptionType"] = ex.GetType(),
-                ["Message"] = $"Uncaught exception: {ex.Message}",
+                Message = "An unexpected error occurred. Please try again later."
             };
-            logEvent["Error"] = error;
+
+            await context.Response.WriteAsJsonAsync(errorResponse);
         }
     }
 }
