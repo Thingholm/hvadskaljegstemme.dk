@@ -12,6 +12,15 @@ resource "aws_acm_certificate" "certificate" {
   }
 }
 
+resource "aws_acm_certificate" "api" {
+  domain_name       = "api.${var.domain_name}"
+  validation_method = "DNS"
+}
+
+resource "aws_acm_certificate_validation" "api" {
+  certificate_arn = aws_acm_certificate.api.arn
+}
+
 output "acm_validation_records" {
   value = aws_acm_certificate.certificate.domain_validation_options
 }
