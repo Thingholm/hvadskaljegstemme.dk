@@ -36,7 +36,7 @@ export default function Test({
 		if (typeof window === "undefined") return;
 
 		if (Object.entries(updatedUserAnswers).filter(([_, vote]) => vote !== "skip").length < 1) {
-			setValidationMessage("Ingen spørgsmål er besvaret. Venligst besvar mindst et spørgsmål for at afslutte testen og se dit resultat.");
+			setValidationMessage("Ingen forslag er besvaret. Venligst besvar mindst et forslag for at afslutte testen og se dit resultat.");
 			return;
 		}
 
@@ -94,7 +94,7 @@ export default function Test({
 						className='md:w-fit'
 					>
 						<Info  size={16}/>
-						Se mere om spørgsmålet
+						Se mere om forslag
 					</Button>
 					<div className="flex flex-col md:flex-row-reverse gap-4 lg:gap-6 mt-2">
 						<TestAnswerButton answer="for" onClick={() => handleUserAnswer("for", currentBill)} isAnswered={userAnswers[currentBill.id] === "for"}/>
@@ -106,7 +106,7 @@ export default function Test({
 						className='text-gray-500 w-full md:hidden' 
 						onClick={() => handleUserAnswer("skip", currentBill)}
 					>
-						Spring spørgsmålet over
+						Spring forslag over
 					</Button>
 					<div className='hidden md:grid grid-cols-3 w-[calc(100%-2rem)] justify-between py-4 lg:pt-6 mt-8 border-t border-gray-200 '>
 							<Button 
@@ -123,7 +123,7 @@ export default function Test({
 							className='text-gray-500 justify-self-center' 
 							onClick={() => handleUserAnswer("skip", currentBill)}
 						>
-							{questionIndex < bills.length - 1 ? "Spring spørgsmålet over" : "Spring spørgsmålet over og afslut"}
+							{questionIndex < bills.length - 1 ? "Spring forslaget over" : "Spring forslaget over og afslut"}
 						</Button>
 						<Button onClick={() => handleUserAnswer(null, currentBill)} className='pl-6 justify-self-end'>
 							{questionIndex < bills.length - 1 ? "Næste" : "Afslut"}

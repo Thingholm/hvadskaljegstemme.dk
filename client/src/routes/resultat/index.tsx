@@ -65,7 +65,7 @@ function RouteComponent() {
         <CardSection className='md:p-6!'>
             <div className='md:px-4 grid gap-2 pb-2 md:pb-0'>
                 <PageHeading>Dit resultat</PageHeading>
-                <PageSubheading>Her kan du se dit resultat fra testen over, hvor enig du er med partierne i de {submittedAnswers.length} spørgsmål.</PageSubheading>
+                <PageSubheading>Her kan du se dit resultat fra testen over, hvor enig du er med partierne i de {submittedAnswers.length} forslag.</PageSubheading>
             </div>
             <div className='grid gap-4 md:gap-0'>
                 {userResult.map(ur => (

@@ -71,7 +71,7 @@ function RouteComponent() {
         <CardSection>
             <div className='grid gap-2 pb-2'>
                 <PageHeading>Partiernes stemmer</PageHeading>
-                <PageSubheading>Her kan du se alle spørgsmålene i testen, og hvordan partierne har stemt i Folketingssalen.</PageSubheading>
+                <PageSubheading>Her kan du se alle forslagene i testen, og hvordan partierne har stemt på dem i Folketingssalen.</PageSubheading>
                 {submittedAnswers.length > 0 && (
                     <label className='flex items-center gap-1.5' htmlFor='show-user-answers'>
                         <input 
