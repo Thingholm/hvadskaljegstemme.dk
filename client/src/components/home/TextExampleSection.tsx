@@ -44,9 +44,9 @@ export default function TestExampleSection() {
                     <div className="px-4 md:px-0 pt-3 2xl:pt-12 pb-4 bg-gray-100 md:bg-auto xl:max-w-5xl xl:mx-auto">
                         <TestProgress currentProgress={12} totalProgress={27} />
                     </div>
-                    <div className="flex flex-col gap-4 bg-white p-4 md:p-8 border-t border-gray-200 md:border-none md:rounded-xl md:shadow-md md:items-center xl:max-w-5xl xl:mx-auto xl:pt-10">
+                    <div className="flex flex-col gap-4 bg-white p-4 md:p-8 border-t border-gray-200 md:border-none md:rounded-xl md:shadow-md items-center xl:max-w-5xl xl:mx-auto xl:pt-10">
                         <Badge className='capitalize'>{exampleBill.billType}{exampleBill.isPassed ? " - Vedtaget" : ""}</Badge>
-                        <h2 className="text-3xl md:text-2xl text-pretty font-bold md:text-center">{exampleBill.question}</h2>
+                        <h2 className="text-xl md:text-2xl text-pretty font-bold text-center">{exampleBill.question}</h2>
                         <Button
                             variant="mobileText"
                             onClick={() => setShowDialog(true)}
@@ -55,7 +55,7 @@ export default function TestExampleSection() {
                             <Info  size={16}/>
                             Se mere om spørgsmålet
                         </Button>
-                        <div className="flex flex-col md:flex-row-reverse gap-4 lg:gap-6 mt-2">
+					    <div className="flex flex-col w-full md:w-fit md:flex-row gap-4 lg:gap-6 mt-2">
                             <TestAnswerButton answer="for" onClick={() => handleUserAnswer("for")} isAnswered={userAnswer === "for"}/>
                             <TestAnswerButton answer="neither" onClick={() => handleUserAnswer("neither")} isAnswered={userAnswer === "neither"}/>
                             <TestAnswerButton answer="against" onClick={() => handleUserAnswer("against")} isAnswered={userAnswer === "against"}/>
