@@ -15,6 +15,7 @@ public record Bill
     bool IsPassed,
     BillType BillType,
     DateOnly VotedAt,
+    int? Order,
     IEnumerable<PartyVote> PartyVotes
 );
 

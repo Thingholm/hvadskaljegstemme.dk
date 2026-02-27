@@ -13,7 +13,7 @@ public class BillController(AppDbContext db) : ControllerBase
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Models.Bill>>> GetQuestions()
     {
-        var bills = await _db.Bills.Include(b => b.PartyVotes).ToListAsync();
+        var bills = await _db.Bills.Include(b => b.PartyVotes).OrderBy(b => b.Order).ToListAsync();
         var billDtos = bills.Select(b => new Dtos.Bill(
             b.Id,
             b.BillTag,
@@ -26,6 +26,7 @@ public class BillController(AppDbContext db) : ControllerBase
             b.IsPassed,
             b.BillType,
             b.VotedAt,
+            b.Order,
             b.PartyVotes.Select(pv => new Dtos.PartyVote(pv.PartyId, pv.Vote))
         ));
         return Ok(billDtos);

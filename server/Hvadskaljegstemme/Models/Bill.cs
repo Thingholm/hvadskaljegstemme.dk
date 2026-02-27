@@ -27,4 +27,6 @@ public class Bill
     public DateOnly VotedAt { get; set; }
 
     public BillType BillType { get; set; }
+
+    public int? Order { get; set; }
 }
