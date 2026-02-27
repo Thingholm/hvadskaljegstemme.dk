@@ -85,9 +85,9 @@ export default function Test({
 				<div className="px-4 md:px-0 md:mx-16 lg:mx-32 pt-3 md:pt-6 lg:pt-8 xl:pt-10 2xl:pt-12 pb-4 bg-gray-100 md:bg-auto xl:max-w-5xl xl:mx-auto">
 					<TestProgress currentProgress={questionIndex} totalProgress={bills.length} />
 				</div>
-				<div className="flex flex-col gap-4 bg-white p-4 md:p-8 border-t border-gray-200 md:border-none md:mx-16 lg:mx-32 md:rounded-xl md:shadow-md md:items-center xl:max-w-5xl xl:mx-auto xl:pt-10">
+				<div className="flex flex-col gap-4 items-center bg-white p-4 md:p-8 border-t border-gray-200 md:border-none md:mx-16 lg:mx-32 md:rounded-xl md:shadow-md xl:max-w-5xl xl:mx-auto xl:pt-10">
 					<Badge className='capitalize'>{currentBill.billType}{currentBill.isPassed ? " - Vedtaget" : ""}</Badge>
-					<h2 className="text-2xl text-pretty font-bold md:text-center">{currentBill.question}</h2>
+					<h2 className="text-xl text-pretty font-bold text-center">{currentBill.question}</h2>
 					<Button
 						variant="mobileText"
 						onClick={() => setShowDialog(true)}
@@ -96,7 +96,7 @@ export default function Test({
 						<Info  size={16}/>
 						Se mere om forslag
 					</Button>
-					<div className="flex flex-col md:flex-row-reverse gap-4 lg:gap-6 mt-2">
+					<div className="flex flex-col w-full md:w-fit md:flex-row gap-4 lg:gap-6 mt-2">
 						<TestAnswerButton answer="for" onClick={() => handleUserAnswer("for", currentBill)} isAnswered={userAnswers[currentBill.id] === "for"}/>
 						<TestAnswerButton answer="neither" onClick={() => handleUserAnswer("neither", currentBill)} isAnswered={userAnswers[currentBill.id] === "neither"}/>
 						<TestAnswerButton answer="against" onClick={() => handleUserAnswer("against", currentBill)} isAnswered={userAnswers[currentBill.id] === "against"}/>

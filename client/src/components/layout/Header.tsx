@@ -3,6 +3,7 @@ import { useState } from "react";
 import Button from "../ui/Button";
 import { Link } from "@tanstack/react-router";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
+import logo from "../../../public/logo.svg"
 
 export default function Header() {
     const [isOpen, setIsOpen] = useState(false);
@@ -26,9 +27,10 @@ export default function Header() {
                 <Link
                     to="/" 
                     onClick={closeMenu}
-                    className="text-lg font-bold"
+                    className="text-lg font-bold flex items-center gap-1.5"
                 >
-                    Hvad skal jeg stemme
+                    <img src={logo} className="h-4.5"/>
+                    <span>Hvad skal jeg stemme?</span>
                 </Link>
 
                 <div className="flex items-center md:hidden">

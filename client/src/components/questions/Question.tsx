@@ -27,7 +27,7 @@ export default function Question({
             </Button>
             <div className="grid gap-2 md:grid-cols-3 items-start">
                 <VotesContainer 
-                    vote="against" 
+                    vote="for" 
                     partyVotes={billWithVotes.partyVotes} 
                     userAnswer={showUserAnswers ? billWithVotes.userAnswer : undefined}
                 />
@@ -37,7 +37,7 @@ export default function Question({
                     userAnswer={showUserAnswers ? billWithVotes.userAnswer : undefined}
                 />
                 <VotesContainer 
-                    vote="for" 
+                    vote="against" 
                     partyVotes={billWithVotes.partyVotes} 
                     userAnswer={showUserAnswers ? billWithVotes.userAnswer : undefined}
                 />

@@ -5,6 +5,16 @@ import { Compass, Scale, ScrollText, Search, ShieldCheck, Vote } from 'lucide-re
 import PageHeading from '../../components/ui/PageHeading'
 
 export const Route = createFileRoute('/om-testen/')({
+    head: () => ({
+        meta: [
+            { title: 'Om testen - Hvad skal jeg stemme?' },
+            { name: 'description', content: 'Læs om metodikken bag partitesten: hvordan afstemninger udvælges, beregnes og hvordan der sikrer fuld gennemsigtighed og anonymitet.' },
+            { property: 'og:title', content: 'Om testen - Hvad skal jeg stemme?' },
+            { property: 'og:description', content: 'Læs om metodikken bag partitesten: hvordan afstemninger udvælges, beregnes og hvordan der sikrer fuld gennemsigtighed og anonymitet.' },
+            { property: 'og:url', content: 'https://hvadskaljegstemme.dk/om-testen/' },
+        ],
+        links: [{ rel: 'canonical', href: 'https://hvadskaljegstemme.dk/om-testen/' }]
+    }),
   component: RouteComponent,
 })
 

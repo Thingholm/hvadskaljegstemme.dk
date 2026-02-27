@@ -14,6 +14,16 @@ import { fetchParties } from '../../lib/api/parties';
 import type { PartyVote } from '../../lib/types/party-vote';
 
 export const Route = createFileRoute('/resultat/')({
+    head: () => ({
+        meta: [
+            { title: 'Dit resultat - Hvad skal jeg stemme?' },
+            { name: 'description', content: 'Se dit personlige resultat og find ud af hvilke partier du er mest enig med baseret på dine svar til folketingsvalg 2026' },
+            { property: 'og:title', content: 'Mit resultat - Hvad skal jeg stemme?' },
+            { property: 'og:description', content: 'Find ud af hvilket parti du er mest enig til folketingsvalget 2026 med baseret på faktiske Folketingsafstemninger.' },
+            { property: 'og:url', content: 'https://hvadskaljegstemme.dk/resultat/' },
+            { name: 'robots', content: 'noindex, nofollow' },
+        ],
+    }),
   component: RouteComponent,
 })
 
