@@ -12,6 +12,16 @@ import { fetchBills } from '../../lib/api/bills'
 import { fetchParties } from '../../lib/api/parties'
 
 export const Route = createFileRoute('/partiernes-stemmer/')({
+    head: () => ({
+        meta: [
+            { title: 'Partiernes stemmer - Hvad skal jeg stemme?' },
+            { name: 'description', content: 'Se alle lovforslag og beslutningsforslag i testen og hvordan hvert parti har stemt på dem i Folketingssalen.' },
+            { property: 'og:title', content: 'Partiernes stemmer i Folketinget - Hvad skal jeg stemme?' },
+            { property: 'og:description', content: 'Overblik over hvordan partierne har stemt i Folketinget på forslagene i testen.' },
+            { property: 'og:url', content: 'https://hvadskaljegstemme.dk/partiernes-stemmer/' },
+        ],
+        links: [{ rel: 'canonical', href: 'https://hvadskaljegstemme.dk/partiernes-stemmer/' }]
+    }),
     component: RouteComponent,
 })
 

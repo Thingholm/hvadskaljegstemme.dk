@@ -1,0 +1,9 @@
+# robots.txt - https://hvadskaljegstemme.dk
+
+User-agent: *
+
+Disallow: /resultat/
+
+Allow: /
+
+Sitemap: https://hvadskaljegstemme.dk/sitemap.xml
