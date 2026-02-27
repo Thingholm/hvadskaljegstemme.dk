@@ -39,7 +39,7 @@ export default function Header() {
                     </button>
                 </div>
 
-                <nav className="hidden items-center text-sm md:flex md:gap-4 lg:gap-8">
+                <nav className="hidden items-center text-sm md:flex md:gap-3 lg:gap-8">
                     {menuItems.map((item) => (
                         <Link key={item.path} to={item.path} className="block hover:text-blue-500 duration-300">
                             {item.name}
