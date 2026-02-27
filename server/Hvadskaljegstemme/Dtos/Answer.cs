@@ -8,3 +8,8 @@ public record Answer
     Vote Vote,
     Guid UserId
 );
+
+public record AnswerUserCount
+(
+    int Count
+);

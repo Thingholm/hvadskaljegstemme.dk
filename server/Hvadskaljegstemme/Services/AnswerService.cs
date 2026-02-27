@@ -52,4 +52,17 @@ public class AnswerService(AppDbContext db)
 
         return Result.Success();
     }
+
+    public async Task<Result<int>> GetAnswerCount()
+    {
+        try
+        {
+            var count = await _db.UserAnswers.Select(ua => ua.UserId).Distinct().CountAsync();
+            return Result<int>.Success(count);
+        }
+        catch (Exception ex)
+        {
+            return Result<int>.Failure(new DBError(ex.Message));
+        }
+    }
 }

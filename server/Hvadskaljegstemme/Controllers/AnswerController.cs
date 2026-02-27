@@ -30,5 +30,20 @@ public class AnswerController(AnswerService answerService, ILogger<AnswerControl
 
         return Ok();
     }
+
+    [HttpGet("user-count")]
+    [ResponseCache(Duration = 300, Location = ResponseCacheLocation.Any)]
+    public async Task<ActionResult<AnswerUserCount>> GetAnswerCount()
+    {
+        var result = await _answerService.GetAnswerCount();
+        if (!result.IsSuccess)
+        {
+            _logger.LogError("Error getting answer count: {ErrorMessage}", result.Error.Message);
+
+            return StatusCode(500);
+        }
+
+        return Ok(new AnswerUserCount(result.Value));
+    }
 }
 
