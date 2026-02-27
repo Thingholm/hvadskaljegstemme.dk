@@ -23,10 +23,6 @@ export const Route = createRootRoute({
             { property: "robots", content: "index, follow" },
 
             { property: "content-language", content: "da" },
-        ],
-        links: [
-            { rel: "canonical", href: "https://hvadskaljegstemme.dk"},
-            { rel: "icon", href: "/logo.svg"}
         ]
     }),
     component: RootComponent,

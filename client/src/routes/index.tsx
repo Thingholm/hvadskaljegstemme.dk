@@ -13,8 +13,7 @@ export const Route = createFileRoute("/")( {
             { property: 'og:title', content: 'Hvad skal jeg stemme? - Partitest baseret på Folketingsafstemninger' },
             { property: 'og:description', content: 'Tag partitesten, baseret på hvordan partierne faktisk har stemt i Folketinget, og find ud af hvilket parti du er mest enig med.' },
             { property: 'og:url', content: 'https://hvadskaljegstemme.dk/' },
-        ],
-        links: [{ rel: 'canonical', href: 'https://hvadskaljegstemme.dk/' }]
+        ]
     }),
     component: HomePage,
 })

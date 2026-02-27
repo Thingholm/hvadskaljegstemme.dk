@@ -19,8 +19,7 @@ export const Route = createFileRoute('/partiernes-stemmer/')({
             { property: 'og:title', content: 'Partiernes stemmer i Folketinget - Hvad skal jeg stemme?' },
             { property: 'og:description', content: 'Overblik over hvordan partierne har stemt i Folketinget på forslagene i testen.' },
             { property: 'og:url', content: 'https://hvadskaljegstemme.dk/partiernes-stemmer/' },
-        ],
-        links: [{ rel: 'canonical', href: 'https://hvadskaljegstemme.dk/partiernes-stemmer/' }]
+        ]
     }),
     component: RouteComponent,
 })

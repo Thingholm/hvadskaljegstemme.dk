@@ -12,8 +12,7 @@ export const Route = createFileRoute('/om-testen/')({
             { property: 'og:title', content: 'Om testen - Hvad skal jeg stemme?' },
             { property: 'og:description', content: 'Læs om metodikken bag partitesten: hvordan afstemninger udvælges, beregnes og hvordan der sikrer fuld gennemsigtighed og anonymitet.' },
             { property: 'og:url', content: 'https://hvadskaljegstemme.dk/om-testen/' },
-        ],
-        links: [{ rel: 'canonical', href: 'https://hvadskaljegstemme.dk/om-testen/' }]
+        ]
     }),
   component: RouteComponent,
 })

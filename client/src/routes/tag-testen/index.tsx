@@ -20,8 +20,7 @@ export const Route = createFileRoute('/tag-testen/')({
 			{ property: 'og:title', content: 'Tag testen - Hvad skal jeg stemme?' },
 			{ property: 'og:description', content: 'Svar på spørgsmål om rigtige lovforslag og beslutningsforslag og find ud af hvilke partier du er mest enig med i Folketinget til folketingsvalg 2026.' },
 			{ property: 'og:url', content: 'https://hvadskaljegstemme.dk/tag-testen/' },
-		],
-		links: [{ rel: 'canonical', href: 'https://hvadskaljegstemme.dk/tag-testen/' }]
+		]
 	}),
 	component: RouteComponent
 })
