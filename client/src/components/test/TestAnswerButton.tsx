@@ -32,7 +32,7 @@ export default function TestAnswerButton({
         <div className="relative">
             <button
                 onClick={onClick}
-                className={`${voteStyles[answer]} ${isAnswered ? "border-3 pb-5" : ""} w-full px-4 py-6 rounded-xl font-semibold flex items-center gap-4 md:gap-2 border hover:brightness-[0.98] hover:cursor-pointer active:scale-[0.99] md:active:scale-[0.97] duration-100 md:flex-col md:w-40 lg:w-50 lg:py-8 select-none`}
+                className={`${voteStyles[answer]} ${isAnswered ? "border-3 pb-5" : ""} w-full px-4 py-6 rounded-xl justify-center font-semibold flex items-center gap-4 md:gap-2 border hover:brightness-[0.98] hover:cursor-pointer active:scale-[0.99] md:active:scale-[0.97] duration-100 md:flex-col md:w-40 lg:w-50 lg:py-8 select-none`}
             >
                 {voteIcons[answer]}
                 {voteTranslations[answer]}
