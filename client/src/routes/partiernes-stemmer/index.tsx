@@ -15,7 +15,7 @@ export const Route = createFileRoute('/partiernes-stemmer/')({
     head: () => ({
         meta: [
             { title: 'Partiernes stemmer - Hvad skal jeg stemme?' },
-            { name: 'description', content: 'Se alle lovforslag og beslutningsforslag i testen og hvordan hvert parti har stemt på dem i Folketingssalen.' },
+            { name: 'description', content: 'Se alle lovforslag og beslutningsforslag i testen og hvordan hvert parti har stemt på dem i Folketinget.' },
             { property: 'og:title', content: 'Partiernes stemmer i Folketinget - Hvad skal jeg stemme?' },
             { property: 'og:description', content: 'Overblik over hvordan partierne har stemt i Folketinget på forslagene i testen.' },
             { property: 'og:url', content: 'https://hvadskaljegstemme.dk/partiernes-stemmer/' },
@@ -80,7 +80,7 @@ function RouteComponent() {
         <CardSection>
             <div className='grid gap-2 pb-2'>
                 <PageHeading>Partiernes stemmer</PageHeading>
-                <PageSubheading>Her kan du se alle forslagene i testen, og hvordan partierne har stemt på dem i Folketing.</PageSubheading>
+                <PageSubheading>Her kan du se alle forslagene i testen, og hvordan partierne har stemt på dem i Folketinget.</PageSubheading>
                 {submittedAnswers.length > 0 && (
                     <label className='flex items-center gap-1.5' htmlFor='show-user-answers'>
                         <input 

@@ -25,7 +25,11 @@ jobs:
           node-version: "24.10"
       
       - name: Install dependencies
-        run: npm install
+        run: npm ci
+        working-directory: ./client
+
+      - name: Test
+        run: npm test
         working-directory: ./client
 
       - name: Build
