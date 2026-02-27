@@ -1,7 +1,7 @@
 import type { UserAnswer } from "../types/user-answer";
 
 export function submitUserAnswers(userAnswers: UserAnswer[]): void {
-    fetch(`http://localhost:8080/api/answers`, {
+    fetch(`/api/answers`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(userAnswers)

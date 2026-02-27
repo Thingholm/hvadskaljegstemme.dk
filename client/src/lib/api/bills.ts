@@ -1,7 +1,7 @@
 import type { Bill } from "../types/bill";
 
 export async function fetchBills(): Promise<Bill[]> {
-    const response = await fetch(`http://localhost:8080/api/bills`);
+    const response = await fetch(`/api/bills`);
 
     if (!response.ok) {
         throw new Error(`Failed to fetch bills: ${response.statusText}`);
