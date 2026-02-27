@@ -22,7 +22,7 @@ function RouteComponent() {
         <Section className="py-6 flex flex-col gap-6 md:py-8 bg-white">
             <div className="grid gap-2">
                 <PageHeading>Om testen</PageHeading>
-                <p className="text-gray-600 text-sm">Vi har gennemgået samtlige afstemninger i Folketinget i seneste valgperiode for at lave en partitest, der bygger på, hvordan partierne har stemt i Folketingssalen, og ikke hvad de lover under en valgkamp.</p>
+                <p className="text-gray-600 text-sm">Vi har gennemgået samtlige afstemninger i Folketinget i seneste valgperiode for at lave en partitest, der bygger på, hvordan partierne har stemt i Folketinget, og ikke hvad de lover under en valgkamp.</p>
             </div>
             <div className="grid gap-4 lg:grid-cols-3">
                 <AboutCard
@@ -33,12 +33,12 @@ function RouteComponent() {
                 <AboutCard
                     icon={<ScrollText size={28}/>}
                     heading="Rigtige lov- og beslutningsforslag"
-                    text="Alle spørgsmål i testen baserer sig på en afstemning om et lov- eller beslutningsforslag, der har været til afstemning i Folketingssalen, som der linkes til i testen."
+                    text="Alle spørgsmål i testen baserer sig på en afstemning om et lov- eller beslutningsforslag, der har været til afstemning i Folketinget, som der linkes til i testen."
                 />
                 <AboutCard
                     icon={<Vote size={28}/>}
                     heading="Rigtige partstemmer"
-                    text="Partiernes stemmer, som resultatet udregnes ud fra, er deres faktisk afgivne stemmer i Folketingssalen. Derfor er partier, som ikke har været repræsenteret i Folketinget hele valgperioden, som Nye Borgerlige og Borgernes Parti, ikke med i testen."
+                    text="Partiernes stemmer, som resultatet udregnes ud fra, er deres faktisk afgivne stemmer i Folketinget. Derfor er partier, som ikke har været repræsenteret i Folketinget hele valgperioden, som Nye Borgerlige og Borgernes Parti, ikke med i testen."
                 />
                 <AboutCard
                     icon={<Compass size={28}/>}

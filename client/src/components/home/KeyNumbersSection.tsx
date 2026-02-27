@@ -40,9 +40,9 @@ export default function KeyNumbersSection() {
         <Section className="bg-gray-100 py-6 md:py-8">
             <div className="grid grid-cols-3 gap-y-8 md:grid-cols-3 xl:max-w-5xl xl:mx-auto">
                 {/* <KeyNumberBlock label="Har taget testen" value={##}/> */}
-                <KeyNumberBlock label="Forslag" value={bills?.length} isLoading={isLoadingBills} fallbackValue="XX"/>
-                <KeyNumberBlock label="Partier" value={parties?.length} isLoading={isLoadingParties} fallbackValue="XX"/>
-                <KeyNumberBlock label="Gennemsigtighed" value={"100%"}/>
+                <KeyNumberBlock label="Forslag" value={bills?.length} isLoading={isLoadingBills} fallbackValue="27"/>
+                <KeyNumberBlock label="Partier" value={parties?.length} isLoading={isLoadingParties} fallbackValue="11"/>
+                <KeyNumberBlock label="Gennemsigtigt" value={"100%"}/>
             </div>
         </Section>
     )
