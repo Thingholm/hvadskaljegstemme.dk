@@ -40,11 +40,15 @@ export default function Test({
 			return;
 		}
 
-		const answersToSubmit = Object.entries(updatedUserAnswers).map(([billId, vote]) => ({
-			userId: userId,
-			billId: Number(billId),
-			vote,
-		}));
+		const answersToSubmit = bills.map(bill => {
+			const vote = updatedUserAnswers[bill.id] ?? "skip"
+
+			return {
+				userId: userId,
+				billId: bill.id,
+				vote,			
+			}
+		})
 
 		submitUserAnswers(answersToSubmit)
         setSubmittedAnswers(answersToSubmit);

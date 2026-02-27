@@ -22,10 +22,6 @@ export default function ResultCard({
 
     const toggleIsExpanded = () => setIsExpanded(!isExpanded);
 
-    console.log(userResult)
-    console.log(userAnswers)
-    console.log(partyVotes)
-
     return (
         <div>
             <div className="grid gap-2 hover:cursor-pointer md:hover:bg-gray-100 md:p-4 md:rounded-lg" onClick={toggleIsExpanded}>
