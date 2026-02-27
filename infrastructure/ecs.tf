@@ -111,13 +111,6 @@ resource "aws_ecs_task_definition" "api" {
           valueFrom = "${aws_db_instance.db.master_user_secret[0].secret_arn}:password::"
         }
       ]
-      healthCheck = {
-        command     = ["CMD-SHELL", "curl -f http://localhost:8080/api/health || exit 1"]
-        interval    = 10
-        timeout     = 5
-        retries     = 5
-        startPeriod = 20
-      }
     }
   ])
 }
@@ -127,8 +120,8 @@ resource "aws_security_group" "alb" {
   vpc_id = var.vpc_id
 
   ingress {
-    from_port       = 80
-    to_port         = 80
+    from_port       = 443
+    to_port         = 443
     protocol        = "tcp"
     cidr_blocks     = ["0.0.0.0/0"]
     prefix_list_ids = [data.aws_ec2_managed_prefix_list.cloudfront.id]
@@ -191,10 +184,11 @@ resource "aws_lb_target_group" "api" {
   }
 }
 
-resource "aws_lb_listener" "api" {
+resource "aws_lb_listener" "api_https" {
   load_balancer_arn = aws_lb.api.arn
-  port              = 80
-  protocol          = "HTTP"
+  port              = 443
+  protocol          = "HTTPS"
+  certificate_arn   = aws_acm_certificate.api.arn
 
   default_action {
     type             = "forward"
@@ -228,7 +222,7 @@ resource "aws_ecs_service" "api" {
     rollback = true
   }
 
-  depends_on = [aws_lb_listener.api]
+  depends_on = [aws_lb_listener.api_https]
 
   lifecycle {
     ignore_changes = [task_definition]
