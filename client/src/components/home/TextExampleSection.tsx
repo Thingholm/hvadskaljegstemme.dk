@@ -37,7 +37,7 @@ export default function TestExampleSection() {
         <Section className="bg-gray-100 grid gap-6 py-6 md:py-8">
             <div className="text-center grid gap-2">
                 <SectionTitle>Sådan fungerer det</SectionTitle>
-                <p className="text-gray-600 xl:max-w-5xl xl:mx-auto text-pretty">For at læse mere om spørgsmålet og argumenter for og imod, kan du klikke på <span className="italic">Se mere om spørgsmålet</span>. Hvis spørgsmålet springes over, medregnes det ikke i resultatet og er derfor ikke det samme som <span  className="italic">hverken/eller</span>.</p>
+                <p className="text-gray-600 xl:max-w-5xl xl:mx-auto text-pretty">For at læse mere om forslaget og argumenter for og imod, kan du klikke på <span className="italic">Se mere om forslaget</span>. Hvis forslaget springes over, medregnes det ikke i resultatet og er derfor ikke det samme som <span  className="italic">hverken/eller</span>.</p>
             </div>
             <div className="rounded-xl border border-gray-200 md:border-hidden overflow-hidden">
                 <div>
@@ -65,7 +65,7 @@ export default function TestExampleSection() {
                             className='text-gray-500 w-full md:hidden' 
                             onClick={() => null}
                         >
-                            Spring spørgsmålet over
+                            Spring forslaget over
                         </Button>
                         <div className='hidden md:grid grid-cols-3 w-[calc(100%-2rem)] justify-between py-4 lg:pt-6 mt-8 border-t border-gray-200 '>
                                 <Button 
@@ -81,7 +81,7 @@ export default function TestExampleSection() {
                                 className='text-gray-500 justify-self-center' 
                                 onClick={() => null}
                             >
-                                Spring spørgsmålet over
+                                Spring forslaget over
                             </Button>
                             <Button onClick={() => null} className='pl-6 justify-self-end'>
                                 Næste
