@@ -11,6 +11,7 @@ public class BillController(AppDbContext db) : ControllerBase
     private readonly AppDbContext _db = db;
 
     [HttpGet]
+    [ResponseCache(Duration = 300, Location = ResponseCacheLocation.Any)]
     public async Task<ActionResult<IEnumerable<Models.Bill>>> GetQuestions()
     {
         var bills = await _db.Bills.Include(b => b.PartyVotes).OrderBy(b => b.Order).ToListAsync();
