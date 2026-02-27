@@ -9,7 +9,7 @@ export default function AboutSection() {
         <Section className="py-6 grid gap-6 md:py-8">
             <div className="grid gap-2 text-center">
                 <SectionTitle>Om testen</SectionTitle>
-                <p className="text-gray-600 xl:max-w-5xl xl:mx-auto text-pretty">Vi har gennemgået samtlige afstemninger i Folketinget i seneste valgperiode for at lave en partitest, der bygger på, hvordan partierne har stemt i Folketinget, og ikke hvad de lover under valgkampen.</p>
+                <p className="text-gray-600 xl:max-w-5xl xl:mx-auto text-pretty">Vi har gennemgået samtlige afstemninger i Folketinget i den seneste valgperiode for at lave en partitest, der bygger på, hvordan partierne har stemt i Folketinget, og ikke hvad de lover under valgkampen.</p>
             </div>
             <div className="grid gap-4 lg:grid-cols-3">
                 <AboutCard

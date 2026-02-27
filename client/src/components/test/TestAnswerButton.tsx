@@ -2,8 +2,8 @@ import { Minus, ThumbsDown, ThumbsUp } from "lucide-react";
 import type { Vote } from "../../lib/types/vote";
 
 const voteTranslations: Record<Vote, string> = {
-    for: "For",
-    against: "Imod",
+    for: "Enig",
+    against: "Uenig",
     neither: "Hverken/eller",
 }
 

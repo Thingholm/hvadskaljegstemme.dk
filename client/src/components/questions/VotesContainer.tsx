@@ -10,15 +10,15 @@ const iconColorDictionary: Record<Vote, string> = {
 }
 
 const labelDictionary: Record<Vote, string> = {
-    "for": "For",
+    "for": "Enig",
     "neither": "Hverken/eller",
-    "against": "Imod"
+    "against": "Uenig"
 }
 
 const shortenedLabelDictionary: Record<Vote, string> = {
-    "for": "For",
+    "for": "Enig",
     "neither": "Neutral",
-    "against": "Imod"
+    "against": "Uenig"
 }
 
 export default function VotesContainer({

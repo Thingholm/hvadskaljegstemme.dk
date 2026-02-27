@@ -98,7 +98,7 @@ export default function Test({
 						className='md:w-fit'
 					>
 						<Info  size={16}/>
-						Se mere om forslag
+						Se mere om forslaget
 					</Button>
 					<div className="flex flex-col w-full md:w-fit md:flex-row gap-4 lg:gap-6 mt-2">
 						<TestAnswerButton answer="for" onClick={() => handleUserAnswer("for", currentBill)} isAnswered={userAnswers[currentBill.id] === "for"}/>
@@ -110,7 +110,7 @@ export default function Test({
 						className='text-gray-500 w-full md:hidden' 
 						onClick={() => handleUserAnswer("skip", currentBill)}
 					>
-						Spring forslag over
+						Spring forslaget over
 					</Button>
 					<div className='hidden md:grid grid-cols-3 w-[calc(100%-2rem)] justify-between py-4 lg:pt-6 mt-8 border-t border-gray-200 '>
 							<Button 
