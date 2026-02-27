@@ -1,4 +1,4 @@
-import { describe, expect, it, test } from "vitest"
+import { describe, expect, it } from "vitest"
 import { calculateUserResult } from "./resultCalculation";
 import type { Bill } from "../../lib/types/bill";
 import type { UserAnswer } from "../../lib/types/user-answer";
@@ -36,11 +36,6 @@ const bills: Bill[] = [
     }
 ]
 
-const userAnswers: UserAnswer[] = [
-    { userId: "", billId: 1, vote: "for" },
-    { userId: "", billId: 2, vote: "against" }
-]
-
 const defaultParty = {
     name: "",
     letter: "",
@@ -49,21 +44,6 @@ const defaultParty = {
 
 const partyA = { ...defaultParty, id: 1 };
 const partyB = { ...defaultParty, id: 2 };
-
-const expected = [
-    {
-        party: partyA,
-        score: 2,
-        maxScore: 2,
-        percentage: 100
-    },
-    {
-        party: partyB,
-        score: 0.5,
-        maxScore: 2,
-        percentage: 25
-    }
-]
 
 describe("calculateUserResult", () => {
     it("Returns 100% match when user votes match party votes exactly", () => {
