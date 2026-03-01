@@ -32,7 +32,7 @@ resource "aws_iam_role_policy" "ecs_task_execution_secrets" {
       {
         Effect   = "Allow"
         Action   = ["secretsmanager:GetSecretValue"]
-        Resource = aws_db_instance.db.master_user_secret[0].secret_arn
+        Resource = aws_secretsmanager_secret.db_password.arn
       },
       {
         Effect   = "Allow"
@@ -113,7 +113,7 @@ resource "aws_ecs_task_definition" "api" {
       secrets = [
         {
           name      = "POSTGRESCONNECTION__PASSWORD"
-          valueFrom = "${aws_db_instance.db.master_user_secret[0].secret_arn}:password::"
+          valueFrom = "${aws_secretsmanager_secret.db_password.arn}:password::"
         }
       ]
     }
