@@ -55,7 +55,7 @@ export default function VotesContainer({
             </div>
             <div className="flex flex-wrap gap-1.5 items-start">
                 {parties.map(party => (
-                    <PartyLetter party={party} size={6}/>
+                    <PartyLetter key={party.id} party={party} size={6}/>
                 ))}
                 {userAnswer === vote && (
                     <PartyLetter size={6}/>
