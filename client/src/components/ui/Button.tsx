@@ -1,6 +1,7 @@
-import { Link } from "@tanstack/react-router";
+import Link from "next/link";
 
-const baseStyle = "text-sm px-3 py-1.5 rounded flex items-center justify-center w-fit gap-1 hover:cursor-pointer transition-colors duration-300 select-none";
+const baseStyle =
+    "text-sm px-3 py-1.5 rounded flex items-center justify-center w-fit gap-1 hover:cursor-pointer transition-colors duration-300 select-none";
 
 const buttonVariants = {
     primary: "bg-blue-500 text-white rounded hover:bg-blue-600",
@@ -8,10 +9,10 @@ const buttonVariants = {
     white: "bg-white rounded text-blue-500 font-medium hover:bg-gray-100",
     text: "text-blue-500 underline rounded hover:text-blue-600 hover:bg-gray-100",
     mobileText: "text-blue-500 rounded px-0! hover:underline",
-}
+};
 
-export default function Button({ 
-    children, 
+export default function Button({
+    children,
     variant = "primary",
     to,
     onClick,
@@ -19,7 +20,7 @@ export default function Button({
     target,
     disabled = false,
 }: Readonly<{
-    children: React.ReactNode; 
+    children: React.ReactNode;
     variant?: keyof typeof buttonVariants;
     className?: string;
     to?: string;
@@ -29,8 +30,8 @@ export default function Button({
 }>) {
     if (to) {
         return (
-            <Link 
-                to={to} 
+            <Link
+                href={to}
                 target={target}
                 onClick={onClick}
                 className={`${baseStyle} ${buttonVariants[variant]} ${className} ${disabled ? "opacity-50 cursor-not-allowed pointer-events-none" : ""}`}
@@ -41,7 +42,11 @@ export default function Button({
     }
 
     return (
-        <button onClick={onClick} className={`${baseStyle} ${buttonVariants[variant]} ${className} ${disabled ? "opacity-50 cursor-not-allowed pointer-events-none" : ""}`} disabled={disabled}>
+        <button
+            onClick={onClick}
+            className={`${baseStyle} ${buttonVariants[variant]} ${className} ${disabled ? "opacity-50 cursor-not-allowed pointer-events-none" : ""}`}
+            disabled={disabled}
+        >
             {children}
         </button>
     );
